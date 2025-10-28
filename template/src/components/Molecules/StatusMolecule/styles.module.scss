@@ -1,0 +1,53 @@
+@use "/styles/all" as *;
+
+.statusIndicator {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  width: fit-content;
+  padding: 4px 8px;
+
+  border-radius: 100px;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}
+
+.success {
+  background-color: $success100;
+  .indicator {
+    background-color: $success700;
+  }
+}
+
+.inProgress {
+  background-color: $primary100;
+  .indicator {
+    background-color: $primary400;
+  }
+}
+
+.warning {
+  background-color: $warning100;
+  .indicator {
+    background-color: $warning700;
+  }
+}
+
+.error {
+  background-color: $danger100;
+  .indicator {
+    background-color: $danger700;
+  }
+}
+
+.default {
+  background-color: $neutral100;
+  .indicator {
+    background-color: $text100;
+  }
+}

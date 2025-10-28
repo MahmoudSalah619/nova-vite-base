@@ -1,6 +1,9 @@
 export interface NotificationItemProps {
-  message: string;
-  productName: string;
-  imageSrc: string;
-  isLast: boolean;
+  statusId: number;
+  statusText: string;
+  title: string;
+  location: string;
+  floor: string;
+  users: string[];
+  isRead?: boolean;
 }

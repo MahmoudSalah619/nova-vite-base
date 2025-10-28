@@ -1,72 +1,50 @@
-# Dashboard Vite Template
+# React + TypeScript + Vite
 
-This is a dashboard template built with React and Vite. It provides a modern and responsive user interface for building web applications. It includes:
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-- Forms with all shapes
-- Sider
-- Navbar
-- Data tables
-- Filters
-- Graphs
-- Search
-- Uploads
-- Translation using i18n
-- Auth/main stacks
-- An overall ready-for-integration template with an atomic design system.
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **React**: A JavaScript library for building user interfaces.
-- **Vite**: A fast build tool and development server.
-- **TypeScript**: A strongly typed programming language that builds on JavaScript.
-- **Redux Toolkit**: A toolset for efficient Redux development.
-- **RTK Query**: Powerful data fetching and caching tool.
-- **React Toastify**: Easy-to-use toast notifications.
-- **React-i18next**: Internationalization for React.
-- **Day.js**: A lightweight JavaScript date library.
-- **Ant Design (Antd)**: A popular React UI framework.
-- **React Hook Form**: Performant, flexible, and extensible forms with easy-to-use validation.
-- **Atomic Design System**: A methodology for creating design systems.
-- **Reusable Components**: Modular and reusable components for easy customization.
-- **State Management**: Integrated state management using React hooks or context.
+## Expanding the ESLint configuration
 
-## Installation
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-To get started with this project, follow these steps:
+- Configure the top-level `parserOptions` property like this:
 
-1. Clone the repository:
-   ```bash
-   npm i create-nova-vite
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd dashboard-template
-   ```
-3. Install the dependencies:
-   ```bash
-   npm install
-   ```
-
-## Usage
-
-To start the development server, run:
-
-```bash
-npm run dev
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+});
 ```
 
-To build the project for production, run:
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```bash
-npm run build
+```js
+// eslint.config.js
+import react from "eslint-plugin-react";
+
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: "18.3" } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs["jsx-runtime"].rules,
+  },
+});
 ```
-
-To preview the production build, run:
-
-```bash
-npm run
-```
-
-## License
-
-This project is licensed under the MIT License.

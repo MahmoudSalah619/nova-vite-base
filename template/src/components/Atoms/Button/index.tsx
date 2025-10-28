@@ -2,25 +2,30 @@ import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
 import Text from "../Text";
 import styles from "./styles.module.scss";
 import { CustomButtonProps } from "./types";
+import Icon from "../Icon";
 
 function Button({
   title,
   variant = "primary",
-  customStyle,
+  size = "large",
+  className,
   isFullWidth,
   onClick,
-  suffix,
-  paddingBlock = 8,
-  paddingInline = 14,
+  prefixIcon,
+  prefixIconSize,
+  suffixIcon,
+  suffixIconSize,
   disabled,
-  fontSize = 16,
-  fontFamily = "font500",
+  icon,
+  iconSize: iconSizeProp,
   fontColor,
+  iconButtonType,
+  fontVariant,
+  children,
   ...otherProps
 }: CustomButtonProps) {
-  const paddingBlockClass = `padding-block-${paddingBlock}`;
-  const paddingInlineClass = `padding-inline-${paddingInline}`;
   const { t } = useAutoCompleteTranslation();
+  const iconSize = size === "large" ? 16 : 12;
 
   return (
     <button
@@ -29,16 +34,36 @@ function Button({
       className={`${styles.btn} 
       ${isFullWidth && styles.isFullWidth} 
       ${styles[variant]} 
-      ${styles[paddingBlockClass]} 
-      ${styles[paddingInlineClass]} 
-      ${disabled && styles.disabled}
-      ${customStyle}`}
+      ${styles[size]}
+      ${iconButtonType && styles[iconButtonType]}
+      ${icon && styles.iconButton}
+      ${className}`}
       disabled={disabled}
     >
-      {suffix}
-      <Text fontFamily={fontFamily} fontSize={fontSize} color={fontColor}>
-        {t(title)}
-      </Text>
+      {icon ? (
+        <Icon name={icon} size={iconSizeProp ?? 16} />
+      ) : (
+        <>
+          {prefixIcon && (
+            <Icon name={prefixIcon} size={prefixIconSize ?? iconSize} />
+          )}
+
+          {title && (
+            <Text
+              variant={fontVariant ?? (size === "large" ? "B1" : "B2")}
+              color={fontColor}
+            >
+              {t(title)}
+            </Text>
+          )}
+
+          {children}
+
+          {suffixIcon && (
+            <Icon name={suffixIcon} size={suffixIconSize ?? iconSize} />
+          )}
+        </>
+      )}
     </button>
   );
 }

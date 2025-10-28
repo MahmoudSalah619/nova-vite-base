@@ -1,24 +1,100 @@
 @use "/styles/all" as *;
 
-.sidebarLinksContainer {
+$upperContainerHeight: 73%;
+
+.sidebarContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 32px;
+  height: 100%;
+  background-color: $primary700;
+}
+
+.upperContainer {
+  position: relative;
+  height: $upperContainerHeight;
+  padding-inline: 8px;
+  padding-top: 63px;
+  display: flex;
+  flex-direction: column;
+  gap: 63px;
+  overflow: auto;
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+}
+
+.sidebarLinksContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .sidebarTitle {
     padding-inline-start: 16px;
   }
-
-  .sidebarLinks {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
 }
 
-.signoutContainer {
+.lowerContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: calc(100% - #{$upperContainerHeight});
+  padding-inline: 8px;
+  background-color: $text400;
+  padding-bottom: 20px;
+}
+
+.lowerLinks {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.triangleStyle {
   position: absolute;
-  bottom: 16px;
-  width: calc(100% - 48px);
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.logoutBtn {
+  padding-inline: 8px;
+  padding-block: 12px;
+}
+
+.modalIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: $danger100;
+}
+
+.modalBtnContainer {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
 }

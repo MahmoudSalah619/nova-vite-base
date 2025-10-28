@@ -1,0 +1,11 @@
+@use "/styles/all" as *;
+
+.slaStpper {
+  display: flex;
+  gap: 16px;
+}
+
+.divider {
+  width: 64px;
+  border: 1px solid $neutral500;
+}

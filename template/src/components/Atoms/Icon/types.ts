@@ -1,6 +1,12 @@
+import iconList from "./list";
+import COLORS from "@/constants/COLORS";
+
 export interface IconProps {
-  name: string;
-  size: number;
-  color?: string;
+  name: keyof typeof iconList;
+  color?: keyof typeof COLORS;
+  size?: number;
+  width?: number;
+  height?: number;
   className?: string;
+  onClick?: () => void;
 }

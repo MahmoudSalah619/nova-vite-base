@@ -1,7 +1,7 @@
-// import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
+import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
 
 export interface StaticticsCardProps {
-  label: string;
+  label: TranslationKeyEnum;
   value: string;
   icon?: string;
 }

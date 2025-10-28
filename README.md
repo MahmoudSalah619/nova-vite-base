@@ -73,29 +73,29 @@ npm run preview
 
 Here are some screenshots of the application:
 
-### Login
+### Dashboard
 
-![Auth/Login](screenshots/login.png)
+![Dashboard](screenshots/dashboard.png)
 
-### Signup
+### Data Display
 
-![Auth/Signup](screenshots/signup.png)
+![Data Display](screenshots/dataDisplay.png)
 
-### Home / Graphs
+### Data Display 2
 
-![Dashboard/Graphs](screenshots/home.png)
-
-### Tables
-
-![Tables](screenshots/tables.png)
-
-### Filters
-
-![Filters](screenshots/filters.png)
+![Data Display 2](screenshots/dataDisplay2.png)
 
 ### Forms
 
-![Forms](screenshots/forms.png)
+![Forms](screenshots/form.png)
+
+### Notifications
+
+![Notifications](screenshots/notification.png)
+
+### Support
+
+![Support](screenshots/support.png)
 
 ## 📋 Changelog
 

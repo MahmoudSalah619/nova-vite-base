@@ -1,3 +1,4 @@
+import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
 import StaticticsCard from "../../Molecules/StaticticsCard";
 import styles from "./styles.module.scss";
 
@@ -6,7 +7,7 @@ function StaticticsCardsContent({
 }: {
   Statictics: {
     id: string;
-    label: string;
+    label: TranslationKeyEnum;
     value: string;
     icon?: string;
   }[];

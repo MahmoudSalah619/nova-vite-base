@@ -2,39 +2,36 @@
 
 .container {
   padding-bottom: 24px;
+}
 
-  .formHeader {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 16px;
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-    .introTitle {
-      font-weight: 700;
-      line-height: 20px;
-      color: $grey700;
-    }
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
 
-    .introSubTitle {
-      line-height: 20px;
-    }
-  }
+.passwordContainer {
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
 
-  .formContainer {
-    .passwordContainer {
-      margin-top: 16px;
-      margin-bottom: 12px;
-    }
+.updatePasswordBtn {
+  margin-top: 16px;
+}
 
-    .spaceTop {
-      margin-top: 16px;
-    }
+.modalBody {
+  padding-bottom: 40px;
+}
 
-    .btnContainer {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
-    }
-  }
+.passordCriteriaContianer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

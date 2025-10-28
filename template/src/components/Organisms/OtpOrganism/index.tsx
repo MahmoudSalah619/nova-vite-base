@@ -4,14 +4,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Text from "@/src/components/Atoms/Text";
 import styles from "./styles.module.scss";
 import Button from "@/src/components/Atoms/Button";
-import ValidationSchema, { Auth } from "@/constants/Validation";
-import Timer from "../../Molecules/Timer";
+import {
+  useCheckResetOtpMutation,
+  useGetResetOtpMutation,
+} from "@apis/services/auth";
+import handleErrors from "@/utils/handleErrors";
+import showAuthToast from "@/utils/showAuthToast";
+import { IOtp, otpSchema } from "./types";
 
 export default function OtpOrganism() {
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const forgetPassword = location.state?.forgetPassword || false;
+  const [checkResetOtp, { isLoading }] = useCheckResetOtpMutation();
+
+  const [getResetOtp] = useGetResetOtpMutation();
 
   const otpContainerStyle = {
     columnGap: 16,
@@ -24,35 +31,60 @@ export default function OtpOrganism() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<Auth>();
+    formState: { errors, isValid },
+  } = useForm<IOtp>({
+    defaultValues: {
+      email: location.state?.email,
+      otp: "",
+    },
+  });
 
-  const onSubmit: SubmitHandler<Auth> = (data) => {
-    console.log("Form Submitted:", data);
-    if (forgetPassword) {
-      navigate("/change-password");
-    } else {
-      navigate("/merchant-info");
+  const onSubmit: SubmitHandler<IOtp> = async (data) => {
+    try {
+      await checkResetOtp(data).unwrap();
+
+      navigate("/change-password", {
+        state: data,
+      });
+    } catch (error) {
+      handleErrors(error);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      await getResetOtp({ email: location.state?.email }).unwrap();
+
+      showAuthToast({ title: "OTP Sent!" });
+    } catch (error) {
+      handleErrors(error);
     }
   };
 
   return (
     <div className={styles.container}>
       <Text
-        className={styles.introText}
-        i18nKey="authentication_code_message"
+        variant="H7"
+        className={styles.introTitle}
+        i18nText="authentication_code_title"
       />
+      <Text
+        variant="P7"
+        className={styles.introText}
+        i18nText="authentication_code_message"
+      />
+
+      <Text variant="L1" className={styles.label} i18nText="ENTER_OTP" />
 
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="otp"
           control={control}
-          defaultValue=""
-          rules={ValidationSchema.otp}
+          rules={otpSchema.otp}
           render={({ field }) => (
             <Input.OTP
-              {...field}
-              formatter={(str) => str.toUpperCase()}
+              value={field.value}
+              onInput={(val) => field.onChange(val.join(""))}
               length={4}
               className={styles.otpInput}
               type="number"
@@ -63,18 +95,25 @@ export default function OtpOrganism() {
           )}
         />
 
-        <Timer />
-
-        <div className={styles.btnContainer}>
-          <Button title="submit_button" isFullWidth />
-        </div>
-
         <div className={styles.btnContainer}>
           <Button
-            onClick={() => navigate("/login")}
-            title="Go Back"
+            title="VERIFY"
+            type="submit"
             isFullWidth
-            variant="transparent-grey"
+            disabled={!isValid || isLoading}
+            size="large"
+          />
+        </div>
+        <div className={styles.textbtnContainer}>
+          <Text variant="P7" i18nText="NO_CODE_SENT" />
+          <Button
+            type="button"
+            title="RESEND"
+            size="small"
+            fontColor="primary400"
+            variant="noStyle"
+            fontVariant="P8"
+            onClick={handleResendOtp}
           />
         </div>
       </form>

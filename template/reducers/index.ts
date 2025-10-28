@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import rtkQueryErrorLogger from "apis/middlewares/errorMiddleware";
 import appReducer from "./appReducer";
 import authReducer from "./authReducer";
 import api from "@/src/apis";
@@ -10,9 +9,8 @@ const store = configureStore({
     auth: authReducer,
     app: appReducer,
   },
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware().concat(api.middleware),
-  // .concat(rtkQueryErrorLogger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 });
 
 export default store;

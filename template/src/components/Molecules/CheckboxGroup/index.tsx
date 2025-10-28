@@ -27,9 +27,7 @@ function CheckboxGroup({
 
   return (
     <div className={styles.container}>
-      <Text color="grey900" fontFamily="font500" fontSize={16}>
-        {title}
-      </Text>
+      <Text variant="P7">{title}</Text>
       {showSearch && (
         <Input
           prefix={

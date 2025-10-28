@@ -1,0 +1,23 @@
+@use "/styles/all" as *;
+
+.headerTitle {
+  display: flex;
+  gap: 4px;
+}
+
+.formContainer {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.btnContainer {
+  max-width: 292px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.message {
+  padding-bottom: 48px;
+}

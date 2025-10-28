@@ -1,0 +1,84 @@
+@use "/styles/all" as *;
+
+.container {
+  min-height: 731px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .btns {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.row {
+  display: flex;
+  gap: 56px;
+}
+
+.inputStyle {
+  border: 1px solid $text50 !important;
+  border-radius: 8px;
+  input {
+    @include P10();
+  }
+}
+
+.selectStyle {
+  border: 1px solid $text50 !important;
+  border-radius: 8px;
+  :global {
+    .ant-select-selection-item {
+      @include P10();
+    }
+  }
+}
+
+.datepickerStyle {
+  height: 32px;
+  border-color: $text50;
+  &:hover,
+  &:focus {
+    border-color: $text50;
+  }
+  :global {
+    .ant-picker-suffix,
+    .ant-picker-clear {
+      display: none;
+    }
+    input {
+      font-family: "MontserratRegular" !important;
+      color: $text50 !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+    }
+  }
+}
+
+.cellContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}

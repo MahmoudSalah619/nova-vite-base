@@ -1,30 +1,34 @@
-import { useLocation, Link, To } from "react-router-dom";
+import { useLocation, Link, useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
 import Text from "../../Atoms/Text";
 import styles from "./styles.module.scss";
-import HeaderRightArrow from "@/src/assets/icons/navbar/header-right-arrow.svg";
-import Image from "../../Atoms/Image";
+import Icon from "../../Atoms/Icon";
 
 function NavbarLink() {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+
   const pathnames = useMemo(() => {
-    const tempArr: string[] = [];
-    location.pathname.split("/").forEach((x) => {
-      if (x.trim()) {
-        if (x?.includes("sub-categories") && location.search) {
-          const decodedParam = decodeURIComponent(
-            location.search.split("=")[1]
-          );
-          tempArr.push(decodedParam.replace(/\s+/g, " "));
-        } else {
-          tempArr.push(x);
-        }
-      }
-    });
-    return tempArr;
+    if (location.pathname === "/") return [""];
+
+    return location.pathname.split("/");
   }, [location]);
 
-  const formatSegment = (segment: string) => {
+  const formatSegment = (segment: string, index: number) => {
+    const numberSegments = pathnames
+      .map((segmentItem, index) => ({
+        item: segmentItem,
+        index: index,
+      }))
+      .filter((segment) => Number(segment.item));
+
+    if (Number(segment)) {
+      return (
+        searchParams.get("queryTitles")?.split(",")[
+          numberSegments.findIndex((item) => item.index === index)
+        ] || ""
+      );
+    }
     return segment
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -33,49 +37,20 @@ function NavbarLink() {
 
   return (
     <div className={styles.navbarLink}>
-      <div className={styles.homeContainer}>
-        <Link to="/" className={styles.textStyle}>
-          <Text
-            color="grey900"
-            fontFamily="font500"
-            fontSize={16}
-            i18nKey="Home"
-          />
-        </Link>
-        {pathnames.length > 0 && (
-          <Image
-            src={HeaderRightArrow}
-            width={6.55}
-            height={11.55}
-            alt="right arrow"
-          />
-        )}
-      </div>
       {pathnames.map((segment, index) => {
-        // const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-        const isLast = index === pathnames.length - 1;
-
+        const isLastSegment = index === pathnames.length - 1;
         return (
           <div className={styles.navbarLink} key={segment}>
-            {isLast ? (
-              <Text color="primary" fontFamily="font500" fontSize={16}>
-                {formatSegment(segment)}
+            {index > 0 && <Icon name="navbarArrowRight" size={8} />}
+            <Link to={`/${pathnames.slice(1, index + 1).join("/")}`}>
+              <Text
+                variant="P10"
+                color={isLastSegment ? "primary400" : "text200"}
+                className={styles[segment]}
+              >
+                {index === 0 ? "Home" : formatSegment(segment, index)}
               </Text>
-            ) : (
-              <Link to={index + 1 - pathnames.length as To}>
-                <Text color="grey900" fontFamily="font500" fontSize={16}>
-                  {formatSegment(segment)}
-                </Text>
-              </Link>
-            )}
-            {!isLast && (
-              <Image
-                src={HeaderRightArrow}
-                width={6.55}
-                height={11.55}
-                alt="right arrow"
-              />
-            )}
+            </Link>
           </div>
         );
       })}

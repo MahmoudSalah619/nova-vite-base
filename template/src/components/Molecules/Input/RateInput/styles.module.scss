@@ -1,0 +1,24 @@
+.rate {
+  font-size: 32px;
+  color: #6e6bcf;
+  padding-inline: 14.5px;
+
+  :global {
+    .anticon-star {
+      padding: 12px;
+
+      svg {
+        stroke: #6e6bcf;
+        stroke-width: 50px;
+      }
+    }
+
+    .ant-rate-star-second {
+      color: transparent;
+    }
+
+    .ant-rate-star {
+      margin: 0 !important;
+    }
+  }
+}

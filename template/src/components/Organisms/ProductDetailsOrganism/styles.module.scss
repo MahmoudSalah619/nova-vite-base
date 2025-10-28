@@ -1,0 +1,10 @@
+@use "/styles/all" as *;
+
+.customStyleRow {
+  display: flex;
+  max-width: 824px;
+}
+
+.quantityCellStyle {
+  flex: 0.4;
+}

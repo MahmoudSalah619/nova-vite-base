@@ -2,103 +2,95 @@ import { useNavigate } from "react-router-dom";
 import { Checkbox, CheckboxProps } from "antd";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Text from "@/src/components/Atoms/Text";
-import TextInput from "@/src/components/Atoms/TextInput";
 import Button from "@/src/components/Atoms/Button";
 import HyperLink from "@/src/components/Atoms/HyperLink";
-import ValidationSchema, { Auth } from "@/constants/Validation";
 import styles from "./styles.module.scss";
-// import { login } from "@/reducers/authReducer";
-import loginHandler from "@/utils/loginHandler";
 import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
-import eye from "@/src/assets/icons/auth/eye.svg";
-import { User } from "@/src/apis/types/auth";
+import { ILogin, loginSchema } from "./types";
+import ControlledInput from "@components/Molecules/ControlledInput";
+import loginHandler from "@/utils/loginHandler";
 
 export default function LoginOrganism() {
   const { t } = useAutoCompleteTranslation();
   const onChange: CheckboxProps["onChange"] = () => {};
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const {
-    register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<Auth>();
+    control,
+    formState: { errors, isSubmitting: isLoginLoading },
+  } = useForm<ILogin>();
 
-  const onSubmit: SubmitHandler<Auth> = (data) => {
-    console.log("Form Submitted:", data);
-    const user_type = data.email === "admin@gmail.com" ? "admin" : "seller";
-    const dummy_data = {
-      user_type,
-    };
-    loginHandler({
-      token: "skshdj36su3h77",
-      data: dummy_data as User,
+  const onSubmit: SubmitHandler<ILogin> = async () => {
+     loginHandler({
+      token: "dummy_token",
+      refreshToken: "dummy_refresh_token",
     });
-    navigate("/");
-    // dispatch(login("skshdj36su3h77"));
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.formHeader}>
-        <Text
-          i18nKey="login_title"
-          fontSize={20}
-          color="primary0E"
-          className={styles.introTitle}
-        />
+        <Text i18nText="login_title" variant="H7" color="text50" />
 
-        <Text
-          i18nKey="login_subtitle"
-          fontSize={14}
-          color="grey500"
-          fontFamily="font400"
-          className={styles.introSubTitle}
-        />
+        <Text i18nText="login_subtitle" variant="P7" color="text100" />
       </div>
 
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
-          containerStyle={styles.input}
-          label="email_address"
-          status={errors.email?.message ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("emailOrPhone", ValidationSchema.email),
-          }}
+        <ControlledInput
+          type="text"
+          control={control}
+          name="email"
+          size="large"
+          label="Email Address"
+          validationRules={loginSchema?.email}
           errorMsg={errors.email?.message}
         />
-        <TextInput
-          containerStyle={`${styles.input} ${styles.passwordContainer}`}
-          label="Password"
-          isPasswordInput
-          type="password"
-          labelStyle={styles.labelStyle}
-          inputStyle={styles.test}
-          status={errors.password?.message ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("password", ValidationSchema.passwordLogin),
-          }}
-          errorMsg={errors.password?.message}
-          suffixIcon={eye}
-
-        />
-        <div className={styles.rowContainer}>
-          <Checkbox className={styles.checkboxStyle} onChange={onChange}>
-            {t("remember_me")}
-          </Checkbox>
-
-          <HyperLink
-            to="/forget-password"
-            title={t("forgot_password")}
-            fontSize={12}
+        <div>
+          <ControlledInput
+            control={control}
+            name="password"
+            size="large"
+            label="Password"
+            type="password"
+            validationRules={loginSchema?.password}
+            errorMsg={errors.password?.message}
           />
+
+          <div className={styles.rowContainer}>
+            <Checkbox className={styles.checkboxStyle} onChange={onChange}>
+              <Text variant="L1" color="text50" i18nText="remember_me" />
+            </Checkbox>
+
+            <HyperLink
+              to="/forget-password"
+              title={t("forgot_password")}
+              fontVariant="L1"
+              fontColor="text50"
+            />
+          </div>
         </div>
-        {/* Buttton */}
 
         <div className={styles.btnContainer}>
-          <Button title="Login" isFullWidth type="submit" />
+          <Button
+            title="Login"
+            isFullWidth
+            type="submit"
+            variant="primary"
+            size="large"
+            disabled={isLoginLoading}
+          />
         </div>
       </form>
+      <div className={styles.btnContainer} style={{ marginTop: "1rem" }}>
+        <Button
+          title="GO_SIGNUP"
+          variant="secondary"
+          isFullWidth
+          size="large"
+          onClick={() => navigate("/sign-up?slug=g34skds75sm5h")}
+        />
+      </div>
     </div>
   );
 }

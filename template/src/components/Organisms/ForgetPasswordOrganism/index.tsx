@@ -2,62 +2,66 @@ import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Text from "@/src/components/Atoms/Text";
 import styles from "./styles.module.scss";
-import TextInput from "@/src/components/Atoms/TextInput";
 import Button from "@/src/components/Atoms/Button";
-import ValidationSchema, { Auth } from "@/constants/Validation";
+import { useGetResetOtpMutation } from "@apis/services/auth";
+import handleErrors from "@/utils/handleErrors";
+import { forgotPasswordSchema, IForgotPassword } from "./types";
+import ControlledInput from "@components/Molecules/ControlledInput";
 
 export default function ForgetPasswordOrganism() {
   const navigate = useNavigate();
+  const [getResetOtp, { isLoading }] = useGetResetOtpMutation();
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm<Auth>();
+  } = useForm<IForgotPassword>();
 
-  const onSubmit: SubmitHandler<Auth> = (data) => {
-    console.log("Form Submitted:", data);
+  const onSubmit: SubmitHandler<IForgotPassword> = async (data) => {
+    try {
+      await getResetOtp(data).unwrap();
 
-    navigate("/ChangePassword", {
-      state: {
-        forgetPassword: true,
-      },
-    });
+      navigate("/email-validation", {
+        state: {
+          email: data.email,
+        },
+      });
+    } catch (error) {
+      handleErrors(error);
+    }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.formHeader}>
-        <Text
-          i18nKey="forget_password_title"
-          fontSize={20}
-          color="primary0E"
-          className={styles.introTitle}
-        />
+        <Text variant="H7" i18nText="forget_password_title" />
 
         <Text
-          i18nKey="forget_password_subtitle"
-          fontSize={14}
-          color="grey500"
-          fontFamily="font400"
-          className={styles.introSubTitle}
+          variant="P7"
+          i18nText="forget_password_subtitle"
+          color="text100"
         />
       </div>
 
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
-          containerStyle={styles.input}
+        <ControlledInput
+          control={control}
+          type="text"
+          size="large"
+          name="email"
           label="Email Address"
-          inputStyle={styles.emailInput}
-          status={errors.emailOrPhone?.message ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("emailOrPhone", ValidationSchema.email),
-          }}
-          errorMsg={errors.emailOrPhone?.message}
+          validationRules={forgotPasswordSchema.email}
+          errorMsg={errors.email?.message}
         />
 
-        {/* Buttton */}
         <div className={styles.btnContainer}>
-          <Button type="submit" title="Reset Password" isFullWidth />
+          <Button
+            type="submit"
+            title="Reset Password"
+            isFullWidth
+            disabled={isLoading}
+          />
         </div>
       </form>
     </div>

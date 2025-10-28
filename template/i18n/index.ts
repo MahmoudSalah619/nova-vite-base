@@ -37,7 +37,6 @@ const useLanguageStorage: LanguageDetectorAsyncModule = {
       }
       return callback(lang);
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     return new Promise(() => {});
   },
   init: () => null,
@@ -51,6 +50,7 @@ const useLanguageStorage: LanguageDetectorAsyncModule = {
   },
 };
 
+// eslint-disable-next-line
 DefaultI18n.use(useLanguageStorage)
   .use(initReactI18next)
   .init({

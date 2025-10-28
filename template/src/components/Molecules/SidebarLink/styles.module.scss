@@ -4,19 +4,12 @@
   cursor: pointer;
 
   display: flex;
-  gap: 15px;
+  gap: 8px;
   align-items: center;
 
-  padding: 8px 12px;
-
-  border-radius: 6px;
+  padding: 10px 8px 6px 8px;
 
   transition: background-color 0.3s ease;
-
-  &:hover {
-    color: unset;
-    background-color: $background;
-  }
 
   .icon {
     display: flex;
@@ -26,11 +19,43 @@
   }
 
   &.active {
-    color: $grey50;
-    background-color: $orange500;
+    background-color: $primary400;
+  }
+}
 
-    .icon {
-      color: $grey50;
+.navbarInnerContent {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.flipArrowStyle {
+  rotate: 180deg;
+}
+
+.subNavbarLink {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  height: 36px;
+
+  padding-inline: 40px 8px;
+
+  transition: background-color 0.3s ease;
+
+  li {
+    width: 0;
+    margin: 0;
+    color: $neutral0;
+  }
+
+  &.active {
+    background-color: $neutral100;
+
+    li {
+      color: black;
     }
   }
 }

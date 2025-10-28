@@ -1,15 +1,13 @@
 import { useState } from "react";
 import PageHeader from "@/src/components/Molecules/PageHeader";
-import RevenueLineChart from "@/src/components/Molecules/RevenueLineChart";
-import OrdersBarChart from "@/src/components/Molecules/OrdersLineChart";
-import FilterOrganism from "../../FilterOrganism";
+import RevenueLineChart from "@/src/components/Molecules/Charts/WorkOrderTrendsLineChart";
+import OrdersBarChart from "@/src/components/Molecules/Charts/WorkOrderByProblemBarChart";
 import MainTableOrganism from "../../MainTableOrganism";
 import styles from "../styles.module.scss";
 import FilterButtons from "@/src/components/Molecules/FilterButtons";
-import DatePicker from "@/src/components/Molecules/DatePicker";
 import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
-import StatusIndicator from "@/src/components/Molecules/StatusIndicator";
-import Status from "@/constants/Status";
+import StatusIndicator from "@/src/components/Molecules/StatusMolecule";
+import { STATUS_ID } from "@/constants/Status";
 import TotalChart from "../../TotalCharts";
 
 function AdminHomeView() {
@@ -41,7 +39,7 @@ function AdminHomeView() {
       title: t("status_column"),
       dataIndex: "status",
       key: "status",
-      render: (status: string) => <StatusIndicator status={status} />,
+      render: () => <StatusIndicator statusId={STATUS_ID.COMPLETED} />,
     },
   ];
 
@@ -81,16 +79,6 @@ function AdminHomeView() {
     merchantName: "Merchant Name",
     date: "Mar 1, 2024",
     orderAmount: "EGP 1000",
-    status:
-      i % 5 === 0
-        ? Status.PAID
-        : i % 5 === 1
-          ? Status.PAID
-          : i % 5 === 2
-            ? Status.REFUNDED
-            : i % 5 === 3
-              ? Status.CANCELLED
-              : Status.REFUNDED,
   }));
   const merchantData = Array.from({ length: 7 }, (_, i) => ({
     key: (i + 1).toString(),
@@ -106,7 +94,7 @@ function AdminHomeView() {
 
   return (
     <>
-      <PageHeader title="Dashboard" />
+      <PageHeader i18nTitle="DASHBOARD" />
       <div className="flex-space-between">
         <FilterButtons
           filters={dateFilters}
@@ -114,8 +102,6 @@ function AdminHomeView() {
           onFilterChange={handleDateFilterChange}
           isGrayButtons
         />
-
-        <DatePicker />
       </div>
       <div className={styles.chartContainer}>
         <RevenueLineChart />
@@ -128,18 +114,16 @@ function AdminHomeView() {
       <div className="flex flex-gap-large flex-align-start">
         <div className="flex-grow-1">
           <MainTableOrganism
-            headerTitle={t("Recent Orders")}
+            headerTitle="Recent Orders"
             columns={recentOrders}
             dataSource={ordersData}
             headerClassName={styles.headerContainer}
             showHeader
-          >
-            <FilterOrganism />
-          </MainTableOrganism>
+          />
         </div>
 
         <MainTableOrganism
-          headerTitle={t("Top Merchants by Revenue")}
+          headerTitle="Top Merchants by Revenue"
           columns={topMerchants}
           dataSource={merchantData}
           showPagination={false}

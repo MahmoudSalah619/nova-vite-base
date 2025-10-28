@@ -1,0 +1,18 @@
+@use "/styles/all" as *;
+
+.profileInformationCard {
+  gap: 16px;
+}
+
+.profileInfoHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inputsContainer {
+  max-width: 542px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

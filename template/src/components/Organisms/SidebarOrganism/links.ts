@@ -1,42 +1,77 @@
-import i18n from "@/i18n";
+import { SidebarLinkProps } from "../../Molecules/SidebarLink/types";
 
-export const generalLinks = {
+export const generalLinks: Record<string, SidebarLinkProps[]> = {
   seller: [
-    { icon: "home", label: i18n.t("Home"), href: "/" },
-    { icon: "package", label: i18n.t("Products"), href: "/products" },
-    { icon: "orders", label: i18n.t("Orders"), href: "/orders" },
-    { icon: "promo", label: i18n.t("Promo Codes"), href: "/promo-codes" },
     {
-      icon: "brand-profile",
-      label: i18n.t("Brand Profile"),
-      href: "/brand-profile",
+      icon: {
+        name: "siderHome",
+        size: 24,
+      },
+      label: "Dashboard",
+      href: "/",
+    },
+    {
+      icon: {
+        name: "siderWorkOrder",
+        size: 24,
+      },
+      label: "Work Orders",
+      href: "/work-order",
+      subLinks: [
+        {
+          href: "work-order-products",
+          label: "Work Order Products",
+        },
+        {
+          href: "work-order-resources",
+          label: "Work Order Resources",
+        },
+        {
+          href: "work-order-expenses",
+          label: "Work Order Expenses",
+        },
+      ],
+    },
+    { icon: { name: "siderSLA", size: 24 }, label: "SLA", href: "/sla" },
+    {
+      icon: { name: "siderProjects", size: 24 },
+      label: "Projects",
+      href: "/projects",
+    },
+    {
+      icon: { name: "siderInventory", size: 24 },
+      label: "Inventory",
+      href: "/inventory",
+    },
+    {
+      icon: { name: "siderAssets", size: 24 },
+      label: "Resources",
+      href: "/resources",
+    },
+    {
+      icon: { name: "siderAssets", size: 24 },
+      label: "Assets",
+      href: "/assets",
+    },
+    {
+      icon: { name: "siderUserManagement", size: 24 },
+      label: "User Management",
+      href: "/user-management",
     },
   ],
-  admin: [
-    { icon: "home", label: i18n.t("Home"), href: "/" },
-    { icon: "orders", label: i18n.t("Orders"), href: "/orders" },
-    { icon: "package", label: i18n.t("Products"), href: "/products" },
-    { icon: "brand-profile", label: i18n.t("Merchants"), href: "/merchants" },
-    { icon: "user", label: i18n.t("Users"), href: "/users" },
-    {
-      icon: "bell",
-      label: i18n.t("Notifications"),
-      href: "/notifications",
-    },
-    { icon: "promo", label: i18n.t("Promo Codes"), href: "/promo-codes" },
-    { icon: "categories", label: i18n.t("Categories"), href: "/categories" },
-    { icon: "message", label: i18n.t("Messages"), href: "/messages" },
-  ],
+  admin: [],
 };
 
-export const supportLinks = {
+export const supportLinks: Record<string, SidebarLinkProps[]> = {
   seller: [
     {
-      icon: "contact-us",
-      label: i18n.t("contact_us_main_title"),
-      href: "/contact-us",
+      icon: { name: "siderSettings" },
+      label: "Settings",
+      href: "/settings",
+      textVariant: "P8",
+      color: "primary700",
+      hasActiveStyle: false,
     },
-    { icon: "faq", label: i18n.t("FAQ"), href: "/Faqs" },
   ],
   admin: [],
 };

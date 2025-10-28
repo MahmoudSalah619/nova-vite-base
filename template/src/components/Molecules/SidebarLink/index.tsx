@@ -1,35 +1,79 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Text from "../../Atoms/Text";
 import styles from "./styles.module.scss";
 import { SidebarLinkProps } from "./types";
+import Icon from "../../Atoms/Icon";
 
 function SidebarLink({
   icon,
   label,
-  isActive,
   className,
   href,
+  subLinks,
+  hasActiveStyle = true,
+  color = "text300",
+  textVariant = "P7",
   onClick,
 }: SidebarLinkProps) {
-  console.log(icon);
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const firstSegment = `/${currentPath.split("/")[1]}`;
+  const secondSegment = currentPath.split("/")[2];
+  const isMainLinkActive = firstSegment === href;
+
   return (
-    <Link
-      className={`${styles.navbarLink} ${className} ${
-        isActive ? styles.active : ""
-      }`}
-      to={href}
-      onClick={onClick}
-      replace
-    >
-      {/* <Icon name={icon} size={24} className={styles.icon} /> */}
-      <Text
-        fontSize={16}
-        fontFamily="font500"
-        color={isActive ? "grey50" : "grey900"}
+    <div className={styles.sidebarLinkContainer}>
+      <Link
+        className={`${styles.navbarLink} ${className} ${
+          isMainLinkActive && hasActiveStyle ? styles.active : ""
+        }`}
+        to={href}
+        onClick={onClick}
+        replace
       >
-        {label}
-      </Text>
-    </Link>
+        <div className={styles.navbarInnerContent}>
+          {icon && <Icon {...icon} />}
+          <Text
+            color={color}
+            variant={isMainLinkActive && hasActiveStyle ? "P9" : textVariant}
+          >
+            {label}
+          </Text>
+        </div>
+
+        {subLinks?.length && (
+          <Icon
+            name="siderArrowDown"
+            size={15}
+            className={isMainLinkActive ? styles.flipArrowStyle : ""}
+          />
+        )}
+      </Link>
+
+      {isMainLinkActive &&
+        subLinks?.map((subLink) => {
+          const isSubLinkActive = secondSegment === subLink.href;
+
+          return (
+            <Link
+              className={`${styles.subNavbarLink}  ${
+                isSubLinkActive ? styles.active : ""
+              }`}
+              to={subLink.href}
+              onClick={subLink.onClick}
+            >
+              <li />
+              <Text
+                variant="P10"
+                color={isSubLinkActive ? "text50" : "text300"}
+              >
+                {subLink.label}
+              </Text>
+            </Link>
+          );
+        })}
+    </div>
   );
 }
 

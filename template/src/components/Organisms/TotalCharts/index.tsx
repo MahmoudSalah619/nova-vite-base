@@ -22,15 +22,8 @@ export default function TotalChart({ data }: { data?: [] }) {
   return (
     <div className={styles.graphCon}>
       <div className={styles.container}>
-        <Text
-          fontFamily="font500"
-          fontSize={14}
-          color="grey900"
-          i18nKey="Total Visits"
-        />
-        <Text fontFamily="font500" fontSize={22} color="grey900">
-          100,000
-        </Text>
+        <Text variant="P7" i18nText="Total Visits" />
+        <Text variant="P7">100,000</Text>
         <ResponsiveContainer minHeight={100}>
           <AreaChart data={data || fakeData}>
             <CartesianGrid
@@ -41,24 +34,17 @@ export default function TotalChart({ data }: { data?: [] }) {
             <Area
               type="monotone"
               dataKey="orders"
-              stroke={COLORS.primary}
+              stroke={COLORS.primary400}
               strokeWidth={2}
-              fill={COLORS.primary}
+              fill={COLORS.primary400}
               fillOpacity={0.09}
             />
           </AreaChart>
         </ResponsiveContainer>
       </div>
       <div className={styles.container}>
-        <Text
-          fontFamily="font500"
-          fontSize={14}
-          color="grey900"
-          i18nKey="Total Customers"
-        />
-        <Text fontFamily="font500" fontSize={22} color="grey900">
-          20,000
-        </Text>
+        <Text variant="P7" i18nText="Total Customers" />
+        <Text variant="P7">20,000</Text>
         <ResponsiveContainer>
           <AreaChart height={135} data={data || fakeData}>
             <CartesianGrid
@@ -69,24 +55,17 @@ export default function TotalChart({ data }: { data?: [] }) {
             <Area
               type="monotone"
               dataKey="orders"
-              stroke={COLORS.primary}
+              stroke={COLORS.primary400}
               strokeWidth={2}
-              fill={COLORS.primary}
+              fill={COLORS.primary400}
               fillOpacity={0.09}
             />
           </AreaChart>
         </ResponsiveContainer>
       </div>
       <div className={styles.container}>
-        <Text
-          fontFamily="font500"
-          fontSize={14}
-          color="grey900"
-          i18nKey="Total Merchants"
-        />
-        <Text fontFamily="font500" fontSize={22} color="grey900">
-          380
-        </Text>
+        <Text variant="P7" i18nText="Total Merchants" />
+        <Text variant="P7">380</Text>
         <ResponsiveContainer>
           <AreaChart height={135} data={data || fakeData}>
             <CartesianGrid
@@ -97,9 +76,9 @@ export default function TotalChart({ data }: { data?: [] }) {
             <Area
               type="monotone"
               dataKey="orders"
-              stroke={COLORS.primary}
+              stroke={COLORS.primary400}
               strokeWidth={2}
-              fill={COLORS.primary}
+              fill={COLORS.primary400}
               fillOpacity={0.09}
             />
           </AreaChart>

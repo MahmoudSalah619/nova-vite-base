@@ -1,3 +1,3 @@
-const DomainUrl = "https://backend-gto.bit68.com";
+const DomainUrl = "";
 
 export default DomainUrl;

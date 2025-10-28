@@ -12,22 +12,40 @@ export default defineConfig({
       custom: {
         families: [
           {
-            name: "SF",
-            src: "./src/assets/fonts/SF-Pro-Text-Regular.otf",
-          },
-          { name: "G-normal", src: "./src/assets/fonts/Gotham-Book.otf" },
-          { name: "G-thin", src: "./src/assets/fonts/Gotham-Thin.otf" },
-          { name: "G-medium", src: "./src/assets/fonts/Gotham-Medium.otf" },
-          { name: "G-bold", src: "./src/assets/fonts/Gotham-Bold.otf" },
-          { name: "G-black", src: "./src/assets/fonts/Gotham-Black.otf" },
-          { name: "N-light", src: "./src/assets/fonts/NeueMachina-Light.otf" },
-          {
-            name: "N-regular",
-            src: "./src/assets/fonts/NeueMachina-Regular.otf",
+            name: "MontserratThin",
+            src: "./src/assets/fonts/Montserrat-Thin.ttf",
           },
           {
-            name: "N-ultraBold",
-            src: "./src/assets/fonts/NeueMachina-Ultrabold.otf",
+            name: "MontserratExtraLight",
+            src: "./src/assets/fonts/Montserrat-ExtraLight.ttf",
+          },
+          {
+            name: "MontserratLight",
+            src: "./src/assets/fonts/Montserrat-Light.ttf",
+          },
+          {
+            name: "MontserratRegular",
+            src: "./src/assets/fonts/Montserrat-Regular.ttf",
+          },
+          {
+            name: "MontserratMedium",
+            src: "./src/assets/fonts/Montserrat-Medium.ttf",
+          },
+          {
+            name: "MontserratSemiBold",
+            src: "./src/assets/fonts/Montserrat-SemiBold.ttf",
+          },
+          {
+            name: "MontserratBold",
+            src: "./src/assets/fonts/Montserrat-Bold.ttf",
+          },
+          {
+            name: "MontserraExtraBold",
+            src: "./src/assets/fonts/Montserrat-ExtraBold.ttf",
+          },
+          {
+            name: "MontserratBlack",
+            src: "./src/assets/fonts/Montserrat-Black.ttf",
           },
         ],
       },

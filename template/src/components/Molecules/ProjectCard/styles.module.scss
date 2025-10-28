@@ -1,0 +1,32 @@
+@use "/styles/all" as *;
+
+.projectCard {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: fit-content;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 4px 0px #0000001a;
+}
+
+.projectCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 11px;
+}
+
+.projectCardBody {
+  background-color: $neutral200;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+.projectCardBodyTitle {
+  opacity: 0.65;
+}

@@ -1,39 +1,78 @@
 @use "/styles/all" as *;
 
+$upperSidePanelHeight: 60%;
+
 .container {
   display: flex;
+  overflow: hidden;
   height: 100vh;
   width: 100%;
   position: relative;
-  overflow: hidden;
 }
 
 .layoutSidePanel {
   flex-basis: 54vw;
   display: flex;
   flex-direction: column;
-  background-color: $primary;
+  background-color: $primary400;
   gap: 100px;
   padding-top: 74px;
-  padding-inline-start: 67px;
   position: sticky;
   top: 0;
   flex-shrink: 0;
 }
 
+.upperSidePanel {
+  display: flex;
+  flex-direction: column;
+  height: $upperSidePanelHeight;
+  padding-inline-start: 67px;
+  padding-inline-end: 234px;
+  gap: 140px;
+}
+
+.lowerSidePanel {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: calc(100% - $upperSidePanelHeight);
+  // TODO: should be change to vraiable color
+  background-color: #d0d0d0;
+  width: 100%;
+}
+
 .layoutContent {
+  width: 100%;
   padding-top: 74px;
   padding-inline-start: 43px;
   padding-inline-end: 68px;
   overflow-y: auto;
+
+  :global {
+    .Toastify__toast-container {
+      width: 100% !important;
+      max-width: 80% !important;
+
+      margin-top: 122px !important;
+    }
+    .Toastify__toast {
+      background-color: transparent !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      margin-right: 50% !important;
+    }
+    .Toastify__toast-body {
+      padding: 0 !important;
+    }
+  }
 }
 
 .layoutText {
-  font-weight: 700;
+  font-size: 64px !important;
+  line-height: 100% !important;
 }
 
 .formTitle {
-  font-weight: 700;
   margin-bottom: 89px;
-  line-height: 45px;
+  letter-spacing: 0;
 }

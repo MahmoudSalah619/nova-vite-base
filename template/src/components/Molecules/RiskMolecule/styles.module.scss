@@ -1,0 +1,28 @@
+@use "/styles/all" as *;
+
+.riskContainer {
+  background-image: url("../../../assets/images/risk.png");
+  background-color: $primary1000;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  justify-content: center;
+
+  padding-block: 22px;
+  border-radius: 8px;
+}
+
+.riskIcon {
+  background-color: $neutral0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.riskTime {
+  text-align: center;
+}

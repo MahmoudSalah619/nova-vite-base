@@ -3,13 +3,12 @@
 .container {
   padding-bottom: 46px;
 
-  .introTitle {
-    font-weight: 700;
-    line-height: 20px;
-    color: $grey700;
-  }
-
   .formContainer {
+    margin-top: 16px;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+
     .passwordContainer {
       margin-top: 16px;
       margin-bottom: 12px;

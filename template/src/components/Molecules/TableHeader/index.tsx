@@ -1,21 +1,20 @@
 import { ReactNode } from "react";
 import Text from "../../Atoms/Text";
 import styles from "./styles.module.scss";
+import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
 
 function TableHeader({
   title,
   children,
   headerClassName,
 }: {
-  title?: string;
+  title?: TranslationKeyEnum;
   children?: ReactNode;
   headerClassName?: string;
 }) {
   return (
     <div className={`${styles.headerContainer} ${headerClassName}`}>
-      <Text color="dark" fontSize={22} fontFamily="font500">
-        {title}
-      </Text>
+      {title && <Text variant="H7" color="text50" i18nText={title} />}
       {children}
     </div>
   );

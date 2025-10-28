@@ -4,9 +4,9 @@ import {
   useSelector,
 } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RootState } from "@/reducers";
+import { RootState } from "reducers";
 // import { setUserInfo } from "reducers/authReducer";
-import loginHandler from "@/utils/loginHandler";
+import loginHandler from "utils/loginHandler";
 // import { useLazyGetUserInfoQuery } from "@/src/apis/services/auth";
 
 export default function useAuth() {
@@ -35,8 +35,9 @@ export default function useAuth() {
   }, []);
 
   useEffect(() => {
-    if (typeof token !== "string") return;
+    // ! Uncomment this once we finish testing
 
+    // if (typeof token !== "string") return;
     if (!token) {
       navigate("/login", { replace: true, state: { from: location } });
     } else if (token && location.pathname === "/login") {

@@ -2,27 +2,30 @@
 
 .container {
   .introText {
-    margin-top: 32px;
     margin-bottom: 20px;
-
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    color: $grey700;
-    text-align: center;
+    text-align: start;
+  }
+  .label {
+    margin-bottom: 8px;
   }
   .formContainer {
-    text-align: center;
-
+    text-align: start;
+    :global(.ant-otp) {
+      width: 100% !important;
+    }
+    input {
+      flex: 1;
+      height: 50px !important;
+    }
     .btnContainer {
-      width: 100%;
       margin-top: 16px;
     }
-
-    .otpInput {
+    .textbtnContainer {
       display: flex;
-      gap: 16px;
-      justify-content: center; // Space between boxes
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      margin-top: 16px;
     }
   }
 }
@@ -39,15 +42,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-:global(.ant-otp-input) {
-  width: 58px !important;
-  height: 58px !important;
-}
-
 :global(
-    :where(
-        .css-dev-only-do-not-override-1x0dypw
-      ).ant-input-outlined.ant-input-status-error:not(.ant-input-disabled)
-  ) {
-  border-color: $red500 !important;
+  :where(
+      .css-dev-only-do-not-override-1x0dypw
+    ).ant-input-outlined.ant-input-status-error:not(.ant-input-disabled)
+) {
+  border-color: $danger700 !important;
 }

@@ -1,13 +1,9 @@
 import { useSearchParams } from "react-router-dom";
 import { ChangeEvent } from "react";
 import styles from "./styles.module.scss";
-import SearchIcon from "@/src/assets/icons/home/search-orange-icon.svg";
-import SelectionInput from "../../Atoms/SelectionInput";
-import TextInput from "../../Atoms/TextInput";
-import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
+import { Input } from "../Input";
 
 function SearchFilterBar() {
-  const { t } = useAutoCompleteTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dummyOptions = [
@@ -24,58 +20,67 @@ function SearchFilterBar() {
     });
   };
 
-  const handleCategoryChange = (value: string) => {
+  const handleCategoryChange = (value: string | string[] | undefined) => {
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
-      newParams.set("category", value);
+      if (value && typeof value === "string") newParams.set("category", value);
+      else newParams.delete("category");
       return newParams;
     });
   };
 
-  const handleDateCreatedChange = (value: string) => {
+  const handleDateCreatedChange = (value: string | string[] | undefined) => {
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
-      newParams.set("dateCreated", value);
+      if (value && typeof value === "string")
+        newParams.set("dateCreated", value);
+      else newParams.delete("dateCreated");
       return newParams;
     });
   };
 
-  const handleDatePublishedChange = (value: string) => {
+  const handleDatePublishedChange = (value: string | string[] | undefined) => {
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
-      newParams.set("datePublished", value);
+      if (value && typeof value === "string")
+        newParams.set("datePublished", value);
+      else newParams.delete("datePublished");
       return newParams;
     });
   };
 
   return (
     <section className={styles.container}>
-      <TextInput
-        inputStyle={styles.searchInput}
-        prefixIcon={SearchIcon}
-        placeholder={t("Search")}
+      <Input
+        type="text"
+        className={styles.searchInput}
+        prefixIcon={"serachIcon"}
+        placeholder="Search"
         onChange={handleSearchChange}
         value={searchParams.get("search") || ""}
       />
 
-      <SelectionInput
-        containerStyle={styles.selectionContainerInput}
+      <Input
+        type="dropdown"
+        className={styles.selectionContainerInput}
         options={dummyOptions}
-        placeholder={t("category_column")}
+        placeholder="category_column"
         onChange={handleCategoryChange}
         value={searchParams.get("category")}
       />
-      <SelectionInput
-        containerStyle={styles.selectionContainerInput}
+      <Input
+        type="dropdown"
+        className={styles.selectionContainerInput}
         options={dummyOptions}
-        placeholder={t("Date Created")}
+        placeholder="Date Created"
         onChange={handleDateCreatedChange}
         value={searchParams.get("dateCreated")}
       />
-      <SelectionInput
-        containerStyle={styles.selectionContainerInput}
+      <Input
+        type="dropdown"
+        className={styles.selectionContainerInput}
         options={dummyOptions}
-        placeholder={t("Date Published")}
+        placeholder="Date Published"
         onChange={handleDatePublishedChange}
         value={searchParams.get("datePublished")}
       />

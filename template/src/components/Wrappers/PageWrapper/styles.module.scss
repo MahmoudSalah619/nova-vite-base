@@ -1,0 +1,19 @@
+@use "/styles/all" as *;
+
+.pageWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.loadingContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

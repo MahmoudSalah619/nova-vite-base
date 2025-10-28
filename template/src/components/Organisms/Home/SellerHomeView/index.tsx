@@ -1,98 +1,120 @@
 import PageHeader from "@/src/components/Molecules/PageHeader";
-import DatePicker from "@/src/components/Molecules/DatePicker";
-import RevenueLineChart from "@/src/components/Molecules/RevenueLineChart";
-import OrdersBarChart from "@/src/components/Molecules/OrdersLineChart";
 import ProductName from "@/src/components/Molecules/ProductName";
-import AvatarImage from "@/src/assets/icons/navbar/avatar.svg";
-import FilterOrganism from "../../FilterOrganism";
 import StaticticsCardsContent from "../../StaticticsCardsContent";
 import MainTableOrganism from "../../MainTableOrganism";
-import styles from "../styles.module.scss";
-import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
-import star from "@/src/assets/icons/stars/yellowStar.svg";
 import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
+import Button from "@/src/components/Atoms/Button";
+import { useNavigate } from "react-router-dom";
+import TableFilterMolecule from "@/src/components/Molecules/TableFilterMolecule";
+import HomeChartsOrganism from "../../HomeChartsOrganism";
+import styles from "../styles.module.scss";
 
 function SellerHomeView() {
-  const { t } = useAutoCompleteTranslation();
+  const navigate = useNavigate();
+
   const columns = [
     {
-      title: "Product Name",
-      dataIndex: "productName",
-      key: "productName",
-      render: (text: string) => (
-        <ProductName text={text} AvatarImage={AvatarImage} />
-      ),
+      title: "Project Name",
+      dataIndex: "projectName",
+      key: "projectName",
+      render: (text: string) => <ProductName text={text} />,
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
+      title: "Total Work Order",
+      dataIndex: "totalWorkOrder",
+      key: "order",
     },
     {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
+      title: "Work Order Type",
+      dataIndex: "workOrderType",
+      key: "type",
     },
     {
-      title: "Orders",
-      dataIndex: "orders",
-      key: "orders",
-    },
-    {
-      title: "Stock",
-      dataIndex: "stock",
-      key: "stock",
-    },
-    {
-      title: "Revenue",
-      dataIndex: "revenue",
-      key: "revenue",
+      title: "Problem Type",
+      dataIndex: "problemType",
+      key: "problemType",
     },
   ];
 
   const data = Array.from({ length: 101 }, (_, i) => ({
     key: (i + 1).toString(),
-    productName: `Product Name`,
-    category: "Men, Hoodies",
+    projectName: `Project #${i + 1}`,
+    totalWorkOrder: (i + 9).toString(),
+    workOrderType: "Organizer",
+    problemType: "fix AC",
     price: "1234",
     orders: "1234",
     stock: "1234",
+
     revenue: "EGP 123,456",
   }));
+
   const Statictics = [
-    { id: "1", label: "Revenue" as TranslationKeyEnum, value: "EGP 100,280" },
-    { id: "2", label: "Orders" as TranslationKeyEnum, value: "1405" },
-    { id: "3", label: "Orders in progress" as TranslationKeyEnum, value: "71" },
+    {
+      id: "1",
+      label: "TOTAL_WORK_ORDERS" as TranslationKeyEnum,
+      value: "1377",
+    },
     {
       id: "2",
-      label: "Avg. Rating" as TranslationKeyEnum,
-      value: "4.4",
-      icon: star,
+      label: "TOTAL_CM_WORK_ORDERS" as TranslationKeyEnum,
+      value: "35",
+    },
+    {
+      id: "3",
+      label: "TOTAL_PM_WORK_ORDERS" as TranslationKeyEnum,
+      value: "1339",
+    },
+    {
+      id: "2",
+      label: "TOTAL_CONSUMED_HOURS" as TranslationKeyEnum,
+      value: "38",
     },
   ];
   return (
     <>
-      <PageHeader title="Dashboard">
-        <DatePicker titleOfBtn="Select dates" />
-        <FilterOrganism />
+      <PageHeader i18nTitle="DASHBOARD">
+        <Button
+          variant="secondary"
+          prefixIcon="addBlack"
+          title="ADD_NEW_WORK_ORDER"
+          onClick={() => {
+            navigate("/add-new-work-order");
+          }}
+        />
+        <Button
+          title="REQUEST_ADD_NEW_USER"
+          prefixIcon="add"
+          onClick={() => {
+            navigate("/request-add-new-user");
+          }}
+        />
       </PageHeader>
+
+      <TableFilterMolecule
+        className={styles.filtersContainer}
+        filters={[
+          "year",
+          "month",
+          "sla",
+          "status",
+          "subStatus",
+          "work_order_type",
+          "project",
+        ]}
+      />
 
       <StaticticsCardsContent Statictics={Statictics} />
 
-      <div className={styles.chartContainer}>
-        <RevenueLineChart />
-        <OrdersBarChart />
-      </div>
+      <HomeChartsOrganism />
 
       <MainTableOrganism
         showHeader
-        headerTitle={t("Best Sellers")}
+        headerTitle="TOTAL_WORKERS_TODAY"
         columns={columns}
         dataSource={data}
-        headerClassName={styles.headerContainer}
-      >
-        <FilterOrganism />
-      </MainTableOrganism>
+        tableFilters={["search", "work_order_type", "date", "status"]}
+      />
     </>
   );
 }

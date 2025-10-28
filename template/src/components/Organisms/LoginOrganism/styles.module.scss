@@ -8,32 +8,23 @@
     flex-direction: column;
     gap: 10px;
     margin-bottom: 16px;
-
-    .introTitle {
-      font-weight: 700;
-      line-height: 20px;
-      color: $grey700;
-    }
-
-    .introSubTitle {
-      line-height: 20px;
-    }
   }
 
   .formContainer {
-    .passwordContainer {
-      margin-top: 16px;
-      margin-bottom: 12px;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
     .rowContainer {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-top: 8px;
+      padding-block: 12px;
     }
 
     .btnContainer {
-      margin-top: 16px;
+      margin-top: 24px; // 40 margin-top -  16 gap
     }
   }
 }

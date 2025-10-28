@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable consistent-return */
-/* eslint-disable no-param-reassign */
+/* eslint-disable */
 
 const infintyPaginationMergeHandler = (currentCache: any, newItems: any) => {
   if (!newItems?.previous) {

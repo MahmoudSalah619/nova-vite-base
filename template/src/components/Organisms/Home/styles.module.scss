@@ -4,11 +4,6 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
-
-  .chartContainer {
-    display: flex;
-    gap: 32px;
-  }
 }
 
 .productNameCell {
@@ -17,8 +12,31 @@
   align-items: center;
 }
 
-.headerContainer {
+.chartContainer {
+  display: flex;
+  gap: 32px;
+}
+
+.viewMoreActions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.actionMenu {
+  gap: 10px;
+  display: flex;
+}
+
+.actionBtn {
+  width: 125px;
+  height: 30px;
+  justify-content: flex-start;
+  gap: 8px;
+  display: flex;
+}
+
+.filtersContainer {
+  flex-wrap: wrap;
 }

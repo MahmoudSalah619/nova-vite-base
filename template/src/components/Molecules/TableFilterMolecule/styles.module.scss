@@ -1,0 +1,13 @@
+@use "/styles/all" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.separator {
+  width: 1px;
+  min-height: 20px;
+  background-color: $neutral300;
+}

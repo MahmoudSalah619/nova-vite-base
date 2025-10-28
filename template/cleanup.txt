@@ -1,0 +1,16 @@
+TODO: 
+    - tables (later)
+    - queryTitles (later)
+    - move static code above component (later)
+
+---------------------------------
+
+Done:
+    - colors
+    - page header
+    - lint
+    - husky
+    - remove unused code
+    - text input variants
+    - button
+    - page names and put related pages component under one main folder

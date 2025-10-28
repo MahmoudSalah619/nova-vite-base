@@ -1,25 +1,32 @@
 import { useState } from "react";
 import { Popover } from "antd";
 import styles from "./styles.module.scss";
-import Image from "../../Atoms/Image";
-import NotificationIcon from "@/src/assets/icons/navbar/notification-icon.svg";
-import AvatarImage from "@/src/assets/icons/navbar/avatar.svg";
 import NotificationItem from "../NotificationItem";
 import Text from "../../Atoms/Text";
-import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
+import Button from "../../Atoms/Button";
+import { NotificationItemProps } from "../NotificationItem/types";
+import Icon from "../../Atoms/Icon";
+import { STATUS_ID } from "@/constants/Status";
 
 function NavbarNotification() {
-  const { t } = useAutoCompleteTranslation();
-  const notificationItems = [
+  const notificationItems: NotificationItemProps[] = [
     {
-      message: t("product_approved_message"),
-      productName: "Product Name",
-      imageSrc: AvatarImage,
+      statusId: STATUS_ID.COMPLETED,
+      statusText: "Success",
+      title: "Created New Work Order #553545",
+      location: "Masr Mall-AC4",
+      floor: "4",
+      users: ["John Doe", "Jane Smith"],
+      isRead: true,
     },
     {
-      message: t("product_rejected_message"),
-      productName: "Product Name",
-      imageSrc: AvatarImage,
+      statusId: STATUS_ID.DANGER,
+      statusText: "CM work order",
+      title: "Fix Air-condition at City center",
+      location: "Masr Mall-AC4",
+      floor: "4",
+      users: ["John Doe", "Jane Smith", "Ali Ahmed", "Adel Shakal"],
+      isRead: false,
     },
   ];
 
@@ -37,30 +44,38 @@ function NavbarNotification() {
   const notificationContent = (
     <div className={styles.notificationOverlay}>
       <div className={styles.notificationHeader}>
-        <Text
-          color="grey900"
-          fontSize={18}
-          fontFamily="font500"
-          i18nKey="Notifications"
+        <Text i18nText="Notifications" variant="P1" color="text50" />
+        <Icon
+          name="closeCircle"
+          size={24}
+          onClick={() => handlePopoverVisibleChange(false)}
         />
-        <button className={styles.markAsRead}>
-          <Text
-            color="orange500"
-            fontSize={12}
-            fontFamily="font500"
-            i18nKey="Mark all as read"
-          />
-        </button>
       </div>
-      <div className={styles.notificationList}>
-        {notificationItems.map((item, index) => (
-          <NotificationItem
-            message={item.message}
-            productName={item.productName}
-            imageSrc={item.imageSrc}
-            isLast={index === notificationItems.length - 1}
-          />
-        ))}
+
+      <div className={styles.notificationBody}>
+        {notificationItems.length > 0 ? (
+          <div className={styles.notificationList}>
+            {notificationItems.map((item) => (
+              <NotificationItem {...item} />
+            ))}
+          </div>
+        ) : (
+          <div className={styles.emptyNotificationContent}>
+            <Icon name="noNotification" width={94.11} height={112.49} />
+            <div className={styles.noNotificationTexts}>
+              <Text
+                variant="H7"
+                color="text50"
+                i18nText="NO_NOTIFICATION_YET"
+              />
+              <Text
+                variant="P3"
+                color="text50"
+                i18nText="EMPTY_NOTIFICATION_DESC"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -75,22 +90,11 @@ function NavbarNotification() {
         content={notificationContent}
         placement="bottomRight"
         trigger="click"
-        overlayClassName={styles.notificationPopover}
         open={isPopoverVisible}
         onOpenChange={handlePopoverVisibleChange}
       >
-        <button className={styles.btn}>
-          <Image
-            src={NotificationIcon}
-            alt="notification icon"
-            width={23.3}
-            height={26.67}
-            className={styles.notificationIcon}
-          />
-        </button>
+        <Button variant="secondary" icon="notificationBing" iconSize={24} />
       </Popover>
-
-      <Image src={AvatarImage} alt="profile image" width={40} height={40} />
     </div>
   );
 }

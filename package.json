@@ -14,7 +14,7 @@
     "react-dashboard",
     "react-template",
     "vite-template",
-    "nova-vite-template",
+    "nova-vite-base",
     "nova-vite",
     "nova",
     "nova-template",
@@ -22,7 +22,7 @@
     "bit68"
   ],
   "bin": {
-    "create-nova-vite-template": "./bin/cli.cmd"
+    "create-nova-vite-base": "./bin/cli.cmd"
   },
   "files": [
     "bin",
@@ -30,10 +30,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MahmoudSalah619/nova-vite-template"
+    "url": "git+https://github.com/MahmoudSalah619/nova-vite-base"
   },
   "license": "MIT",
-  "version": "1.4.16",
+  "version": "1.0.0",
   "scripts": {
     "start": "vite  --port 3000",
     "start_staging": "vite --port 9130",

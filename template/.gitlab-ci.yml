@@ -1,0 +1,60 @@
+stages:
+  - build
+  - deploy
+
+build:
+  image: node:18.17.0
+  stage: build
+  cache:
+    paths:
+      - node_modules/
+
+  before_script:
+    - npm install -f
+
+  script:
+    - npm run build
+
+  artifacts:
+    paths:
+      - build/
+
+  only:
+    - staging
+
+  when: manual
+
+  timeout: 20 minutes
+
+deploy-staging:
+  stage: deploy
+  image: alpine:latest
+
+  before_script:
+    - "command -v ssh-agent >/dev/null || ( apk add --update openssh )"
+    - apk add --update rsync
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $VM_IP_ADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+  script:
+    - rsync --delete-after -va build/ $SSH_USER@$VM_IP_ADDRESS:/var/www/html/sodic/build/
+    - echo -e
+      "
+      cd /var/www/html/sodic/;
+      rm package-lock.json;
+      git pull origin staging;
+      source ~/.nvm/nvm.sh;
+      nvm use node 18.17.0;
+      npm i -f;
+      " | ssh $SSH_USER@$VM_IP_ADDRESS
+
+  only:
+    - staging
+
+  when: manual
+
+  timeout: 20 minutes

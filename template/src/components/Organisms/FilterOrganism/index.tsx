@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Drawer } from "antd";
 import styles from "./styles.module.scss";
-import Image from "../../Atoms/Image";
-import FilterIcon from "@/src/assets/icons/home/filter.svg";
 import FilterPopover from "../../Molecules/FilterPopover";
 import Button from "../../Atoms/Button";
 import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
@@ -17,16 +15,7 @@ function FilterOrganism() {
 
   return (
     <main>
-      <Button
-        onClick={toggleDrawer}
-        title="Filters"
-        suffix={
-          <Image src={FilterIcon} alt="filter icon" width={20} height={20} />
-        }
-        variant="transparent-grey"
-        fontSize={14}
-        fontFamily="font500"
-      />
+      <Button onClick={toggleDrawer} title="Filters" />
 
       <Drawer
         title={t("Filter")}

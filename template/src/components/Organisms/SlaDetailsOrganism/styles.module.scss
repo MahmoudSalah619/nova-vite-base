@@ -1,0 +1,13 @@
+@use "/styles/all" as *;
+
+.detailsScreen {
+  min-height: 184px;
+}
+
+.customRowStyle {
+  max-width: 644px;
+}
+
+.largeCellStyle {
+  flex: 1.2;
+}

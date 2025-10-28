@@ -1,79 +1,88 @@
-import { useLocation } from "react-router-dom";
 import styles from "./styles.module.scss";
 import SidebarLink from "../../Molecules/SidebarLink";
-import Text from "../../Atoms/Text";
 import useGetUserInfo from "@/hooks/useGetUserInfo";
 import { generalLinks, supportLinks } from "./links";
-import logoutHandler from "@/utils/logoutHandler";
-// import logo from "@/src/assets/icons/Logo.svg";
+import Button from "../../Atoms/Button";
+import ModalOrganism from "../ModalOrganism";
+import { useState } from "react";
 import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
+import Icon from "../../Atoms/Icon";
+import Text from "../../Atoms/Text";
+import logoutHandler from "@/utils/logoutHandler";
+import Logo from "@components/Atoms/Logo";
 
 function SidebarOrganism() {
-  const { t } = useAutoCompleteTranslation();
   const { role } = useGetUserInfo();
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const { t } = useAutoCompleteTranslation();
 
-  const firstSegment = `/${currentPath.split("/")[1]}`;
+  const [isVisible, setIsVisible] = useState(false);
 
   const mainLinks = generalLinks[role];
+  const lowerLinks = supportLinks[role];
 
-  const subLinks = supportLinks[role];
+  const handleCancel = () => {
+    setIsVisible(false);
+  };
 
   return (
-    <aside>
-      {/* <Image width={88} height={51} src={logo} alt="logo" /> */}
-      <Text fontSize={52} color="primary">Logo</Text>
-      <div className={styles.sidebarLinksContainer}>
-        <Text
-          color="grey500"
-          fontSize={16}
-          fontFamily="font500"
-          className={styles.sidebarTitle}
-          i18nKey="General"
-        />
-        <div className={styles.sidebarLinks}>
-          {mainLinks.map((link) => (
-            <SidebarLink
-              key={link.href}
-              icon={link.icon}
-              label={link.label}
-              isActive={firstSegment === link.href}
-              href={link.href}
-            />
-          ))}
-        </div>
-      </div>
-      {!!subLinks.length && (
+    <aside className={styles.sidebarContainer}>
+      <div className={styles.upperContainer}>
+        <Logo className={styles.logo} />
         <div className={styles.sidebarLinksContainer}>
-          <Text
-            color="grey500"
-            fontSize={16}
-            className={styles.sidebarTitle}
-            i18nKey="Support"
-          />
           <div className={styles.sidebarLinks}>
-            {subLinks.map((link) => (
-              <SidebarLink
-                key={link.href}
-                icon={link.icon}
-                label={link.label}
-                isActive={firstSegment === link.href}
-                href={link.href}
-              />
+            {mainLinks.map((link) => (
+              <SidebarLink key={link.href} {...link} />
             ))}
           </div>
         </div>
-      )}
+      </div>
 
-      <SidebarLink
-        icon="signout"
-        label={t("Sign out")}
-        className={styles.signoutContainer}
-        onClick={logoutHandler}
-        href="/login"
-        isActive={firstSegment === "/login"}
-      />
+      <div className={styles.lowerContainer}>
+        <div className={styles.triangleStyle}>
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon points="0,0 100,0 16,36.6" fill="#0e3e52" />
+          </svg>
+        </div>
+        <div className={styles.lowerLinks}>
+          {lowerLinks?.map((link) => <SidebarLink key={link.href} {...link} />)}
+          <Button
+            className={styles.logoutBtn}
+            prefixIcon="siderLogout"
+            variant="noStyle"
+            prefixIconSize={20}
+            fontColor="primary700"
+            title="LOGOUT"
+            fontVariant="P8"
+            onClick={() => setIsVisible(true)}
+          />
+        </div>
+      </div>
+
+      <ModalOrganism
+        isVisible={isVisible}
+        onCancel={handleCancel}
+        title={t("LOGOUT_ACCOUNT")}
+        prefix={
+          <div className={styles.modalIconContainer}>
+            <Icon name="error" />
+          </div>
+        }
+      >
+        <Text
+          variant="P3"
+          color="text100"
+          i18nText="ARE_YOU_SURE_YOU_WANT_TO_LOGOUT"
+        />
+
+        <div className={styles.modalBtnContainer}>
+          <Button variant="secondary" title="CANCEL" onClick={handleCancel} />
+          <Button variant="primary" title="Confirm" onClick={logoutHandler} />
+        </div>
+      </ModalOrganism>
     </aside>
   );
 }

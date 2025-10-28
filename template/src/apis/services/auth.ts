@@ -1,62 +1,31 @@
 import api from "..";
 import {
   AuthTokenResponse,
-  CheckResetCodeBody,
-  FirstLoginPasswordBody,
-  ForgotPasswordResponse,
-  GetResetCodeBody,
-  LoginBody,
+  CheckResetOtpBody,
+  GetResetOtpBody,
   ResetPassword,
-  User,
+  ForgotPasswordResponse,
 } from "../types/auth";
 
 export const authApi = api.injectEndpoints({
-  endpoints: (build) => ({
-    getUserInfo: build.query<User, void>({
-      query: () => ({
-        url: "/users/get_me/",
-      }),
-      forceRefetch: () => true,
-    }),
-
-    login: build.mutation<AuthTokenResponse, LoginBody>({
+  endpoints: (builder) => ({
+    getResetOtp: builder.mutation<ForgotPasswordResponse, GetResetOtpBody>({
       query: (body) => ({
-        url: "/users/login/",
+        url: "/auth/get-reset-otp",
         method: "POST",
         body,
       }),
     }),
-
-    firstLoginPassword: build.mutation<
-      ForgotPasswordResponse,
-      FirstLoginPasswordBody
-    >({
+    checkResetOtp: builder.mutation<{ detail: string }, CheckResetOtpBody>({
       query: (body) => ({
-        url: "/change_first_password/",
-        method: "PUT",
-        body,
-      }),
-    }),
-
-    getResetCode: build.mutation<ForgotPasswordResponse, GetResetCodeBody>({
-      query: (body) => ({
-        url: "/forget_password/send_reset_email/",
+        url: "/auth/check-reset-otp",
         method: "POST",
         body,
       }),
     }),
-
-    checkResetCode: build.mutation<unknown, CheckResetCodeBody>({
+    resetPassword: builder.mutation<AuthTokenResponse, ResetPassword>({
       query: (body) => ({
-        url: "/forget_password/check_reset_code/",
-        method: "POST",
-        body,
-      }),
-    }),
-
-    resetPassword: build.mutation<unknown, ResetPassword>({
-      query: (body) => ({
-        url: "/forget_password/reset_password/",
+        url: "/auth/reset-password",
         method: "POST",
         body,
       }),
@@ -65,11 +34,7 @@ export const authApi = api.injectEndpoints({
 });
 
 export const {
-  useGetUserInfoQuery,
-  useLazyGetUserInfoQuery,
-  useLoginMutation,
-  useFirstLoginPasswordMutation,
-  useGetResetCodeMutation,
-  useCheckResetCodeMutation,
+  useGetResetOtpMutation,
+  useCheckResetOtpMutation,
   useResetPasswordMutation,
 } = authApi;

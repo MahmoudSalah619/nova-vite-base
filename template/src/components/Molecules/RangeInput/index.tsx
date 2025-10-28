@@ -29,11 +29,7 @@ function RangeInput({
   }, [clearFlag, onClearComplete]);
   return (
     <div className={styles.container}>
-      {!!title && (
-        <Text fontFamily="font500" color="grey900" fontSize={16}>
-          {title}
-        </Text>
-      )}
+      {!!title && <Text variant="P7">{title}</Text>}
       <Input.Group compact className={styles.rangeInputContainer}>
         <Input
           placeholder={t("From")}

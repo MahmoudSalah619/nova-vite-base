@@ -1,0 +1,22 @@
+@use "/styles/all" as *;
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 26px;
+  }
+
+  .closeIcon {
+    margin-top: 8px;
+    cursor: pointer;
+  }
+}
+
+.modalWrapper {
+  background-color: #00000099;
+}

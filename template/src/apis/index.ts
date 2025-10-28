@@ -5,11 +5,12 @@ import {
   BaseQueryApi,
   FetchBaseQueryError,
   FetchArgs,
+  QueryReturnValue,
+  FetchBaseQueryMeta,
 } from "@reduxjs/toolkit/query/react";
-import { login, logout } from "@/reducers/authReducer";
-import { RootState } from "@/reducers";
+import { login, logout } from "reducers/authReducer";
+import { RootState } from "reducers";
 import tagTypes from "./tagTypes";
-import { AuthTokenResponse } from "./types/auth";
 import DomainUrl from "./Domain";
 
 const rawBaseQuery = (baseUrl: string) =>
@@ -58,7 +59,7 @@ const baseQueryWithReauth = async (
       },
       api,
       extraOptions
-    )) as { data: AuthTokenResponse };
+    )) as { data: any };
 
     return refreshResult;
   };
@@ -68,16 +69,16 @@ const baseQueryWithReauth = async (
   ) => {
     localStorage.setItem("token", newAccessToken);
     api.dispatch(login(newAccessToken));
-    result = (await baseQueryWithRetry(args, api, extraOptions)) as {
-      error: FetchBaseQueryError;
-    };
+    result = (await baseQueryWithRetry(
+      args,
+      api,
+      extraOptions
+    )) as QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>;
   };
 
-  const isTokenExpire =
-    result?.error?.data &&
-    typeof result.error.data === "object" &&
-    "code" in (result.error.data as { code: string }) &&
-    (result.error.data as { code: string }).code.includes("token_not_valid");
+  const isTokenExpire = (
+    result?.error?.data as { code?: string }
+  )?.code?.includes?.("token_not_valid");
 
   if (isTokenExpire) {
     const refreshResult = await getNewAccessToken();

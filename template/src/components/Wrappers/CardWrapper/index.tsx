@@ -14,11 +14,7 @@ function CardWrapper({
         noHorizontalPadding && styles.noPadding
       } ${className}`}
     >
-      {!!title && (
-        <Text fontFamily="font500" fontSize={22} color="grey900">
-          {title}
-        </Text>
-      )}
+      {!!title && <Text variant="P7">{title}</Text>}
       {children}
     </section>
   );

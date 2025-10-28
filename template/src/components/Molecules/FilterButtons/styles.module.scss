@@ -4,18 +4,18 @@
   .ant-btn {
     border-radius: 0px;
     &:hover {
-      color: $orange500 !important;
+      // color: $orange500 !important;
     }
   }
 }
 
 .activeFilterButton {
-  color: $light !important;
-  background-color: $orange500 !important;
-  border-color: $orange500 !important;
+  // color: $light !important;
+  // background-color: $orange500 !important;
+  // border-color: $orange500 !important;
 
   &:hover {
-    color: $light !important;
+    // color: $light !important;
   }
 }
 .btnCon {
@@ -23,12 +23,12 @@
 }
 
 .grayButtons {
-  color: $grey700 !important;
-  background-color: $grey50 !important;
-  border-color: $grey200 !important;
+  // color: $grey700 !important;
+  // background-color: $grey50 !important;
+  // border-color: $grey200 !important;
 
   &:hover {
-    color: $grey700 !important;
+    // color: $grey700 !important;
   }
 }
 

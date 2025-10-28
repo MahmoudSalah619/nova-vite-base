@@ -1,0 +1,7 @@
+@use "/styles/all" as *;
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}

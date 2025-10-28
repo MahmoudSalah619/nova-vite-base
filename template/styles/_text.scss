@@ -1,0 +1,231 @@
+@mixin H1 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: 0;
+}
+
+@mixin H2 {
+  font-family: "MontserratRegular";
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: -1px;
+}
+
+@mixin H3 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 45px;
+  letter-spacing: -1px;
+}
+
+@mixin H4 {
+  font-family: "MontserratRegular";
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -1px;
+}
+
+@mixin H5 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -1px;
+}
+
+@mixin H6 {
+  font-family: "MontserratRegular";
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -1px;
+}
+
+@mixin H7 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -1px;
+}
+
+@mixin P1 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0;
+}
+
+@mixin P2 {
+  font-family: "MontserratMedium";
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0;
+}
+
+@mixin P3 {
+  font-family: "MontserratRegular";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+@mixin P4 {
+  font-family: "MontserratMedium";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+@mixin P5 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+@mixin P6 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+@mixin P7 {
+  font-family: "MontserratRegular";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+@mixin P8 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+@mixin P9 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+@mixin P10 {
+  font-family: "MontserratRegular";
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+@mixin P11 {
+  font-family: "MontserratMedium";
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+@mixin P12 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+
+@mixin P13 {
+  font-family: "MontserratRegular";
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0;
+}
+
+@mixin P14 {
+  font-family: "MontserratMedium";
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0;
+}
+
+@mixin P15 {
+  font-family: "MontserratBold";
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0;
+}
+
+@mixin B1 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 2%;
+}
+
+@mixin B2 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 2%;
+}
+
+@mixin B3 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+@mixin L1 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 2%;
+}
+
+@mixin L2 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 2%;
+}
+
+@mixin L3 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 2%;
+}
+
+@mixin L4 {
+  font-family: "MontserratSemiBold";
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 2%;
+}

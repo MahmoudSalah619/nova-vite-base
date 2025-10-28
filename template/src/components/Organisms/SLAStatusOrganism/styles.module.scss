@@ -1,0 +1,13 @@
+@use "/styles/all" as *;
+
+.slaStatusContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.slaContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

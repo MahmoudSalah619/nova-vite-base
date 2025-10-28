@@ -1,30 +1,22 @@
-import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
-import COLORS from "@/constants/COLORS";
-import FontFamily from "@/constants/FontFamily";
 import { TextProps } from "./types";
+import styles from "./styles.module.scss";
+import i18n from "@/i18n";
 
 export default function Text({
   children,
-  i18nKey,
+  text,
+  i18nText,
   className,
-  fontSize = 14,
-  fontFamily = "font500",
-  color = "dark",
-  lineHeight,
-  ...otherProps
+  color,
+  variant,
+  ...props
 }: TextProps) {
-  const { t } = useAutoCompleteTranslation();
-
-  const textStyle = {
-    color: COLORS[color],
-    fontSize,
-    fontFamily: FontFamily[fontFamily],
-    lineHeight,
-  };
-
   return (
-    <p {...otherProps} style={textStyle} className={className}>
-      {i18nKey ? t(i18nKey) : children}
+    <p
+      {...props}
+      className={`${styles[variant]} ${className} ${styles.text} ${color}Color`}
+    >
+      {text ?? children ?? i18n.t(i18nText ?? "")}
     </p>
   );
 }

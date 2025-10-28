@@ -44,12 +44,8 @@ function DocumentUploader({
   return (
     <div className={styles.commercialContainer}>
       <div className={styles.textContainer}>
-        <Text fontSize={14} color="grey900" fontFamily="font500">
-          {t(title)}
-        </Text>
-        <Text fontSize={11} color="grey600" fontFamily="font500">
-          {t(description)}
-        </Text>
+        <Text variant="P7">{t(title)}</Text>
+        <Text variant="P7">{t(description)}</Text>
       </div>
       <div className={styles.previewContainer}>
         <div className={styles.imgContainer}>

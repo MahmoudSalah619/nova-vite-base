@@ -1,23 +1,17 @@
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
-import FontFamily from "@/constants/FontFamily";
 import COLORS from "@/constants/COLORS";
 
-export interface TextProps {
-  children?: ReactNode;
-  i18nKey?: TranslationKeyEnum;
-  /**
-   * @default 14
-   */
-  fontSize?: number;
-  /**
-   * @default "font400"
-   */
-  fontFamily?: keyof typeof FontFamily;
-  /**
-   * @default "dark"
-   */
+type TextContent =
+  | { i18nText: TranslationKeyEnum; text?: never; children?: never }
+  | { i18nText?: never; text: string; children?: never }
+  | { i18nText?: never; text?: never; children: ReactNode };
+
+type BaseProps = {
+  variant: TextVariant;
   color?: keyof typeof COLORS;
-  lineHeight?: number;
-  className?: string;
-}
+};
+
+export type TextProps = BaseProps &
+  TextContent &
+  HTMLAttributes<HTMLParagraphElement>;

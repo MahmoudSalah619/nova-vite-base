@@ -1,0 +1,22 @@
+@use "/styles/all" as *;
+
+.cardContainer {
+  padding: 16px;
+  width: 353px;
+  border-color: $neutral500;
+  border-radius: 16px;
+}
+
+.iconContainer {
+  display: flex;
+  width: fit-content;
+  padding: 8px;
+  border: 1px solid $neutral500;
+  border-radius: 8px;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

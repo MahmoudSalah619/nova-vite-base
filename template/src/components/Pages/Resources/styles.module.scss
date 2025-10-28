@@ -1,0 +1,31 @@
+@use "/styles/all" as *;
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.selectionInput {
+  width: 100%;
+}
+
+.inputsContainer {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+}
+
+.btnsContainer {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}

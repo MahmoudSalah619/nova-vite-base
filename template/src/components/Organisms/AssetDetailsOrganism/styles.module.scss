@@ -1,0 +1,15 @@
+@use "/styles/all" as *;
+
+.container {
+  min-height: fit-content;
+}
+
+.customRowStyle {
+  justify-content: space-between;
+  max-width: 964px;
+}
+
+.qrCode {
+  width: 200px;
+  height: 200px;
+}

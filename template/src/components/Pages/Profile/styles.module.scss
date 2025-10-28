@@ -1,0 +1,11 @@
+@use "/styles/all" as *;
+
+.profilePage {
+  gap: 24px;
+}
+
+.profileContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

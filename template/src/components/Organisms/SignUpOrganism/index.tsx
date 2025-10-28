@@ -1,26 +1,30 @@
-import ValidationSchema, { Auth } from "@/constants/Validation";
+import { Auth } from "@/constants/Validation";
 import Button from "@/src/components/Atoms/Button";
 import Text from "@/src/components/Atoms/Text";
-import TextInput from "@/src/components/Atoms/TextInput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
-import eye from "@/src/assets/icons/auth/eye.svg";
 import loginHandler from "@/utils/loginHandler";
 import { User } from "@/src/apis/types/auth";
+import ControlledInput from "@components/Molecules/ControlledInput";
 
 export default function SignUpOrganism() {
   const navigate = useNavigate();
 
+  // const defaultValues = {
+  //   fullName: "john doe",
+  //   jobTitle: "developer",
+  //   email: "example@test.com",
+  //   phone: "01012345678",
+  //   companyName: "example company",
+  // };
   const {
-    register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm<Auth>();
+  } = useForm<Auth>({ mode: "all" });
 
   const onSubmit: SubmitHandler<Auth> = (data) => {
-    console.log("Password Changed Successfully:", data);
-    
     const user_type = data.email === "admin@gmail.com" ? "admin" : "seller";
     const dummy_data = {
       user_type,
@@ -29,98 +33,84 @@ export default function SignUpOrganism() {
       token: "skshdj36su3h77",
       data: dummy_data as User,
     });
-    navigate("/");
+    navigate("/login");
   };
 
   return (
     <div className={styles.container}>
-      <Text
-        i18nKey="Complete_user_register"
-        fontSize={20}
-        color="primary0E"
-        className={styles.introTitle}
-      />
+      <Text i18nText="Complete_user_register" variant="H7" />
 
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
-          containerStyle={`${styles.input} ${styles.spaceTop}`}
-          label="Full_Name"
-          labelStyle={styles.labelStyle}
-          status={errors.fullName ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("fullName", ValidationSchema.fullName),
-          }}
+        <ControlledInput
+          control={control}
+          type="text"
+          size="large"
+          name="fullName"
+          i18nLabel="Full_Name"
+          // disabled
           errorMsg={errors.fullName?.message}
         />
-        <TextInput
-          containerStyle={`${styles.input} ${styles.spaceTop}`}
-          label="jobTitle"
-          labelStyle={styles.labelStyle}
-          status={errors.jobTitle ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("jobTitle", ValidationSchema.jobTitle),
-          }}
+        <ControlledInput
+          type="text"
+          control={control}
+          size="large"
+          name="jobTitle"
+          i18nLabel="jobTitle"
+          // disabled
           errorMsg={errors.jobTitle?.message}
         />
-        <TextInput
-          containerStyle={`${styles.input} ${styles.spaceTop}`}
-          label="Email Address"
-          labelStyle={styles.labelStyle}
-          status={errors.emailOrPhone?.message ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("emailOrPhone", ValidationSchema.email),
-          }}
-          errorMsg={errors.emailOrPhone?.message}
+        <ControlledInput
+          type="text"
+          control={control}
+          size="large"
+          name="email"
+          i18nLabel="email_address"
+          errorMsg={errors.email?.message}
         />
-        <TextInput
-          containerStyle={`${styles.input} ${styles.spaceTop}`}
-          label="phone_number_label"
-          labelStyle={styles.labelStyle}
-          status={errors.phoneNumber ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("phoneNumber", ValidationSchema.phoneNumber),
-          }}
-          errorMsg={errors.phoneNumber?.message}
+        <ControlledInput
+          control={control}
+          type="phone"
+          name="phone"
+          i18nLabel="PHONE_NUMBER"
+          i18nPlaceholder="MOBILE_NUMBER"
+          errorMsg={errors.phone?.message}
         />
-        <TextInput
-          containerStyle={`${styles.input} ${styles.spaceTop}`}
-          label="company"
-          labelStyle={styles.labelStyle}
-          status={errors.companyName ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("companyName", ValidationSchema.companyName),
-          }}
+        <ControlledInput
+          control={control}
+          type="text"
+          name="companyName"
+          size="large"
+          i18nLabel="COMPANY"
+          // disabled
           errorMsg={errors.companyName?.message}
         />
-
-        <TextInput
-          containerStyle={`${styles.input} ${styles.passwordContainer}`}
-          label="Password"
-          isPasswordInput
+        {/* <Input
+          containerStyle={`${styles.input} ${styles.spaceTop}`}
+          label="Enter_New_Password"
           type="password"
-          labelStyle={styles.labelStyle}
-          inputStyle={styles.test}
+          inputStyle={styles.emailInput}
           status={errors.newPassword ? "error" : "default"}
           reactHookFormProps={{
             ...register("newPassword", ValidationSchema.NewPassword),
-          }}
-          errorMsg={errors.newPassword?.message}
-          suffixIcon={eye}
+            }}
+            errorMsg={errors.newPassword?.message}
+            /> */}
+        <ControlledInput
+          control={control}
+          name="password"
+          label="Password"
+          size="large"
+          type="password"
+          errorMsg={errors.password?.message}
         />
 
-        <TextInput
-          containerStyle={`${styles.input} ${styles.passwordContainer}`}
-          label="Re_password"
-          isPasswordInput
+        <ControlledInput
+          control={control}
+          name="confirmPassword"
+          i18nLabel="Re_password"
           type="password"
-          labelStyle={styles.labelStyle}
-          inputStyle={styles.test}
-          status={errors.newPassword ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("newPassword", ValidationSchema.NewPassword),
-          }}
-          errorMsg={errors.newPassword?.message}
-          suffixIcon={eye}
+          size="large"
+          errorMsg={errors.confirmPassword?.message}
         />
         {/* Buttton */}
 

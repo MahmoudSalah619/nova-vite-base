@@ -18,9 +18,6 @@ function FilterPopover({
   const [clearFlag, setClearFlag] = useState<boolean>(false);
 
   const handleConfirm = () => {
-    console.log("Selected Order Status:", orderStatus);
-    console.log("Selected Payment Methods:", paymentMethod);
-    console.log("Selected Customer Names:", customerName);
     toggleDrawer();
   };
   const handleClearComplete = () => {
@@ -133,7 +130,6 @@ function FilterPopover({
 
       <div className={styles.buttonsContainer}>
         <Button
-          variant="transparent-grey"
           title="clear_all_button"
           isFullWidth
           onClick={clearAllFilters}

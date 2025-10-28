@@ -12,8 +12,7 @@ export default function useGenerateRoutes() {
     ? routesList.auth
     : [...routesList.common, ...routesList[role]];
 
-  // console.log(isSignedIn, "isSignedIn");
-
+  //
   const routes = useRoutes(activeRoutes);
 
   return routes;

@@ -1,12 +1,15 @@
 import { RcFile } from "antd/es/upload";
+import { FieldValues, Path, RegisterOptions } from "react-hook-form";
 
 export interface Auth {
   emailOrPhone: string;
   email: string;
+  phone: string;
   userName: string;
   password: string;
   otp: string;
   newPassword: string;
+  new_password: string;
   confirmPassword: string;
   UserPassword: string;
   ConfirmUserPassword: string;
@@ -38,24 +41,47 @@ export interface UserInfo {
   homeAddress: string;
 }
 
+export type ValidationRuleItemType<T extends FieldValues> =
+  | Omit<
+      RegisterOptions<T, Path<T>>,
+      "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
+    >
+  | undefined;
+
+export type ValidationRulesType<T extends FieldValues> = Partial<
+  Record<keyof T, ValidationRuleItemType<T>>
+>;
+
+export const patterns = {
+  emailOrPhone: /^[^\s@]+@[^\s@]+\.[^\s@]+$|^\d{11}$/,
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  phone: /^\d{11}$/,
+  string: /^[a-zA-Z0-9\s]+$/,
+  number: /^\d+$/,
+  numberAtLeastOne: /\d/,
+  capitalLetter: /[A-Z]/,
+  smallLetter: /[a-z]/,
+  specialSymbol: /[~!@#%^&*()+_=/-]/,
+};
+
 const ValidationSchema = {
   emailOrPhone: {
     required: "This field is required",
     pattern: {
-      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$|^\d{11}$/,
+      value: patterns.emailOrPhone,
       message: "Enter a valid email address or a 11-digit phone number",
     },
   },
   email: {
     required: "This field is required",
     pattern: {
-      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      message:
-        "The email address you entered is not found, please enter the correct email address.",
+      value: patterns.email,
+      message: "Enter a valid email address",
     },
   },
   passwordLogin: {
     required: "This field is required",
+    // TODO: add regex for password validation
   },
 
   passwordLength: {
@@ -82,19 +108,26 @@ const ValidationSchema = {
     required: "New password is required",
     validate: {
       hasUppercase: (value: string) =>
-        /[A-Z]/.test(value) ||
+        patterns.capitalLetter.test(value) ||
         "Password must include at least one uppercase letter",
+      hasLowercase: (value: string) =>
+        patterns.smallLetter.test(value) ||
+        "Password must include at least one lowercase letter",
+      hasNumber: (value: string) =>
+        patterns.numberAtLeastOne.test(value) ||
+        "Password must include at least one number",
+      hasSpecialSymbol: (value: string) =>
+        patterns.specialSymbol.test(value) ||
+        "Password must include at least one special symbol",
       hasEightCharacters: (value: string) =>
         value?.length >= 8 || "Password must be at least 8 characters long",
-      hasNumber: (value: string) =>
-        /\d/.test(value) || "Password must include at least one number",
     },
   },
   confirmPassword: (watch: (field: string) => string) => ({
     required: "Confirm password is required",
     validate: {
       matchesPassword: (value: string) =>
-        value === watch("newPassword") || "Passwords do not match",
+        value === watch("new_password") || "Passwords do not match",
     },
   }),
 
@@ -177,7 +210,7 @@ const ValidationSchema = {
     required: "job title is required",
     minLength: {
       value: 4,
-      message: "user name must be at least 2 characters long",
+      message: "job title must be at least 2 characters long",
     },
     maxLength: {
       value: 15,
@@ -188,7 +221,7 @@ const ValidationSchema = {
     required: "company name is required",
     minLength: {
       value: 4,
-      message: "user name must be at least 2 characters long",
+      message: "company name must be at least 2 characters long",
     },
     maxLength: {
       value: 15,

@@ -1,0 +1,11 @@
+@use "/styles/all" as *;
+
+.sectionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+}
+
+.selectionInput {
+  max-width: 415px;
+}

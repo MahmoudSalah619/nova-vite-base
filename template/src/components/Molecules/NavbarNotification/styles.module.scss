@@ -4,11 +4,6 @@
   display: flex;
   gap: 16px;
   align-items: center;
-
-  .btn {
-    cursor: pointer;
-    margin-top: 2px;
-  }
 }
 
 .hideOverlay {
@@ -36,40 +31,43 @@
 .notificationOverlay {
   z-index: 1000;
 
-  width: 637px;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 
-  background-color: #ffffff;
-  border-radius: 8px;
+  width: 637px;
+
+  padding-block: 20px;
+  padding-inline: 12px;
+
+  background-color: $neutral0;
+  border-radius: 16px;
 
   .notificationHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    font-size: 16px;
-    font-weight: bold;
-
-    .markAsRead {
-      cursor: pointer;
-    }
   }
 
   .notificationList {
-    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 }
 
-.notificationPopover :global {
-  .ant-popover-arrow {
-    display: none;
-  }
-  .ant-popover-inner {
-    padding: unset;
+.emptyNotificationContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
 
-    background-color: unset;
-    background-clip: unset;
-    border-radius: unset;
-    box-shadow: unset;
-  }
+.noNotificationTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding-inline: 101px;
+  text-align: center;
 }

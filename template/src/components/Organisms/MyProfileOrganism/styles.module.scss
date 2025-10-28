@@ -1,0 +1,29 @@
+@use "/styles/all" as *;
+
+.myProfileCard {
+  padding: 24px 40px 26px 24px;
+  gap: 44px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfoContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.avatar {
+  width: 106px;
+  height: 106px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}

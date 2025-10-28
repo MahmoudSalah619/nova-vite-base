@@ -1,12 +1,31 @@
 @use "/styles/all" as *;
 
 .navbar {
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
+
 .navbarRight {
   display: flex;
-  gap: 16px;
+  gap: 13px;
   align-items: center;
+}
+
+.divider {
+  width: 0;
+  height: 32px;
+  border: 1px solid $neutral300;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

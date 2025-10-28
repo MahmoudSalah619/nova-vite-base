@@ -1,0 +1,33 @@
+@use "/styles/all" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .filterContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .selectionContainer {
+      max-width: 415px;
+      width: 100%;
+    }
+  }
+}
+
+.viewMoreActions {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.actionBtn {
+  width: 125px;
+  height: 30px;
+  justify-content: flex-start;
+  gap: 8px;
+  display: flex;
+}

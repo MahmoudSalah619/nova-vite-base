@@ -9,6 +9,7 @@ export default function Image({
   borderRadius,
   className,
   objectFit,
+  onClick,
 }: {
   width: number;
   height: number;
@@ -17,6 +18,7 @@ export default function Image({
   borderRadius?: string;
   className?: string;
   objectFit?: Property.ObjectFit;
+  onClick?: () => void;
 }) {
   const [newWidth, setNewWidth] = useState<string>(`${width}px`);
   const [newheight, setNewheight] = useState<string>(`${height}px`);
@@ -55,6 +57,7 @@ export default function Image({
         width: newWidth,
         maxWidth: "100%",
       }}
+      onClick={onClick}
     />
   );
 }

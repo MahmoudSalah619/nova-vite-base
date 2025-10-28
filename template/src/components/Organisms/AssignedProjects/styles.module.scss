@@ -1,0 +1,43 @@
+@use "/styles/all" as *;
+
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.assignProjectBtn {
+  padding-inline: 33.5px;
+  padding-block: 12px;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.projectCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.modalbuttons {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}

@@ -1,0 +1,12 @@
+@use "/styles/all" as *;
+
+.container,
+.rowContainer {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.rowContainer {
+  flex-direction: row;
+}

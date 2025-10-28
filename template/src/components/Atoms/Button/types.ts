@@ -1,27 +1,25 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
-import FontFamily from "@/constants/FontFamily";
+import { ButtonHTMLAttributes } from "react";
 import COLORS from "@/constants/COLORS";
 import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
+import iconList from "@/src/components/Atoms/Icon/list";
 
+type ButtonVariant = "primary" | "secondary" | "danger" | "noStyle";
 export interface CustomButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
-  title: TranslationKeyEnum;
-  customStyle?: string;
-  variant?:
-    | "primary"
-    | "dark"
-    | "transparent-grey"
-    | "transparent-error"
-    | "warning"
-    | "transparet";
-
+  icon?: keyof typeof iconList;
+  iconSize?: number;
+  iconButtonType?: "square" | "round";
+  title?: TranslationKeyEnum;
+  size?: "small" | "large";
+  variant?: ButtonVariant;
   isFullWidth?: boolean;
-  onClick?: () => void;
-  suffix?: ReactNode;
-  paddingBlock?: 4 | 8 | 10; // Allowed values for padding-block
-  paddingInline?: 8 | 14 | 16; // Allowed values for padding-inline
+  prefixIcon?: keyof typeof iconList;
+  prefixIconSize?: number;
+  suffixIcon?: keyof typeof iconList;
+  suffixIconSize?: number;
   disabled?: boolean;
-  fontSize?: number;
-  fontFamily?: keyof typeof FontFamily;
+  fontVariant?: TextVariant;
   fontColor?: keyof typeof COLORS;
+  children?: React.ReactNode;
+  onClick?: () => void;
 }

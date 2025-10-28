@@ -1,0 +1,62 @@
+@use "/styles/all" as *;
+
+.uploadContainer {
+  :global {
+    .ant-upload-list {
+      display: flex;
+      gap: 24px !important;
+      height: 120px !important;
+    }
+
+    .ant-upload {
+      width: 113px;
+      height: 120px !important;
+      background-color: transparent !important;
+      border: none !important;
+    }
+  }
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: $neutral100;
+}
+
+.defaultContainer {
+  border: 1px solid $neutral500;
+  border-radius: 12px;
+  width: 113px;
+  height: 120px;
+}
+
+.addTypeContainer {
+  height: 120px;
+  background-image: url("../../../assets/icons/attachment/background.svg");
+}
+
+.upperContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: 20px;
+}
+
+.addAttachmentText {
+  padding-inline: 10px;
+  text-align: center;
+}
+
+.divider {
+  margin: 0;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  padding-inline: 7px;
+}

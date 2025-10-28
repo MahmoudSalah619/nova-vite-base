@@ -23,25 +23,25 @@
   .paidCircle {
     width: 6px;
     height: 6px;
-    background-color: $success700;
+    // background-color: $success700;
     border-radius: 50%;
   }
   .cancelledCircle {
     width: 6px;
     height: 6px;
-    background-color: $danger;
+    // background-color: $danger;
     border-radius: 50%;
   }
   .inProgressCircle {
     width: 6px;
     height: 6px;
-    background-color: $accentYellow;
+    // background-color: $accentYellow;
     border-radius: 50%;
   }
   .refunded {
     width: 6px;
     height: 6px;
-    background-color: $grey500;
+    // background-color: $grey500;
     border-radius: 50%;
   }
 }

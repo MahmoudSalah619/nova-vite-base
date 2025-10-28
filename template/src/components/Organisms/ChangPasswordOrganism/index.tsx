@@ -1,91 +1,120 @@
-import ValidationSchema, { Auth } from "@/constants/Validation";
 import Button from "@/src/components/Atoms/Button";
 import Text from "@/src/components/Atoms/Text";
-import TextInput from "@/src/components/Atoms/TextInput";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
-import loginHandler from "@/utils/loginHandler";
-import { User } from "@/src/apis/types/auth";
+import { useResetPasswordMutation } from "@apis/services/auth";
+import handleErrors from "@/utils/handleErrors";
+import ModalOrganism from "../ModalOrganism";
+import { useState } from "react";
+import Icon from "@components/Atoms/Icon";
+import PasswordCriteriaMolecule from "@components/Molecules/PasswordCriteriaMolecule";
+import { changePasswordSchema, IChangePassword } from "./types";
+import ControlledInput from "@components/Molecules/ControlledInput";
 
 export default function ChangPasswordOrganism() {
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Auth>();
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Handle Form Submission
-  const onSubmit: SubmitHandler<Auth> = (data) => {
-    console.log("Password Changed Successfully:", data);
-    const user_type = data.email === "admin@gmail.com" ? "admin" : "seller";
-    const dummy_data = {
-      user_type,
-    };
-    loginHandler({
-      token: "skshdj36su3h77",
-      data: dummy_data as User,
-    });
-    navigate("/");
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+
+  const {
+    control,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IChangePassword>({
+    defaultValues: {
+      email: location.state?.email,
+      otp: location.state?.otp,
+    },
+  });
+
+  const onSubmit: SubmitHandler<IChangePassword> = async (data) => {
+    // @ts-ignore
+    delete data.confirmPassword;
+
+    try {
+      await resetPassword(data).unwrap();
+      setIsVisible(true);
+    } catch (error) {
+      handleErrors(error);
+    }
+  };
+
+  const handleModalClose = () => {
+    navigate("/login", { replace: true });
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.formHeader}>
-        <Text
-          i18nKey="forget_password_title"
-          fontSize={20}
-          color="primary0E"
-          className={styles.introTitle}
-        />
+        <Text i18nText="forget_password_title" variant="H7" />
 
-        <Text
-          i18nKey="forget_password_subtitle"
-          fontSize={14}
-          color="grey500"
-          fontFamily="font400"
-          className={styles.introSubTitle}
-        />
+        <Text i18nText="forget_password_subtitle" variant="P7" />
       </div>
 
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
-          containerStyle={`${styles.input} ${styles.spaceTop}`}
-          label="Enter_New_Password"
+        <ControlledInput
+          control={control}
+          name="new_password"
+          i18nLabel="Enter_New_Password"
           type="password"
-          labelStyle={styles.labelStyle}
-          inputStyle={styles.emailInput}
-          status={errors.newPassword ? "error" : "default"}
-          reactHookFormProps={{
-            ...register("newPassword", ValidationSchema.NewPassword),
-          }}
-          errorMsg={errors.newPassword?.message}
+          size="large"
+          validationRules={changePasswordSchema.new_password}
+          errorMsg={errors.new_password?.message}
         />
 
-        <TextInput
-          containerStyle={`${styles.input} ${styles.spaceTop}`}
-          label="Confirm_Password"
+        <div className={styles.passordCriteriaContianer}>
+          <PasswordCriteriaMolecule
+            value={watch("new_password")}
+            title="Capital_Letter"
+          />
+          <PasswordCriteriaMolecule
+            value={watch("new_password")}
+            title="Small_Letter"
+          />
+          <PasswordCriteriaMolecule
+            value={watch("new_password")}
+            title="Number"
+          />
+          <PasswordCriteriaMolecule
+            value={watch("new_password")}
+            title="Special_Symbol"
+          />
+        </div>
+
+        <ControlledInput
+          control={control}
+          name="confirmPassword"
+          i18nLabel="Confirm_Password"
+          size="large"
           type="password"
-          labelStyle={styles.labelStyle}
-          inputStyle={styles.emailInput}
-          status={errors.confirmPassword ? "error" : "default"}
-          reactHookFormProps={{
-            ...register(
-              "confirmPassword",
-              ValidationSchema.confirmPassword(watch)
-            ),
-          }}
+          validationRules={changePasswordSchema.confirmPassword}
           errorMsg={errors.confirmPassword?.message}
         />
 
-        {/* Buttton */}
-        <div className={styles.btnContainer}>
-          <Button type="submit" title="update_password" isFullWidth />
-        </div>
+        <Button
+          type="submit"
+          title="update_password"
+          isFullWidth
+          className={styles.updatePasswordBtn}
+          disabled={isLoading}
+        />
       </form>
+
+      <ModalOrganism
+        isVisible={isVisible}
+        onCancel={handleModalClose}
+        title="Congratulations!"
+        prefix={<Icon name="homeGreenSuccessIcon" size={32} />}
+      >
+        <div className={styles.modalBody}>
+          <Text i18nText="PASSWORD_UPDATED" variant="P3" />
+        </div>
+      </ModalOrganism>
     </div>
   );
 }

@@ -1,37 +1,52 @@
 import styles from "./styles.module.scss";
-import Image from "../../Atoms/Image";
 import { NotificationItemProps } from "./types";
+import StatusMolecule from "../StatusMolecule";
 import Text from "../../Atoms/Text";
+import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
+import UserAvatarAtom from "../../Atoms/UserAvatarAtom";
 
 function NotificationItem({
-  message,
-  productName,
-  imageSrc,
-  isLast,
+  statusId,
+  statusText,
+  title,
+  location,
+  floor,
+  users,
+  isRead = false,
 }: NotificationItemProps) {
+  const { t } = useAutoCompleteTranslation();
+
   return (
-    <div>
-      <div className={styles.notificationItem}>
-        <div className={styles.notificationDot} />
-        <div className={styles.notificationContent}>
-          <Text fontSize={16} color="dark" fontFamily="font500">
-            {message}
+    <div className={styles.notificationItem}>
+      <div className={styles.content}>
+        <StatusMolecule statusId={statusId} statusText={statusText} />
+
+        <Text variant="H7" color="text50">
+          {title}
+        </Text>
+
+        <div className={styles.locationContainer}>
+          <Text variant="P3" color="text100">
+            {t("LOCACTION")}: {location}
           </Text>
-          <div className={styles.productInfo}>
-            <Image
-              src={imageSrc}
-              alt="product image"
-              width={24}
-              height={24}
-              className={styles.productImage}
-            />
-            <Text fontSize={14} fontFamily="font400" color="grey900">
-              {productName}
-            </Text>
+          <Text variant="P3" color="text100">
+            {t("FLOOR")}: {floor}
+          </Text>
+        </div>
+
+        <div className={styles.usersAvatarsContainer}>
+          <Text variant="P3" color="text100">
+            {t("Users")}:{" "}
+          </Text>
+          <div className={styles.usersAvatars}>
+            {users.map((user) => (
+              <UserAvatarAtom user={user} />
+            ))}
           </div>
         </div>
       </div>
-      {!isLast && <div className={styles.divider} />}
+
+      {isRead && <span className={styles.notificationDot} />}
     </div>
   );
 }

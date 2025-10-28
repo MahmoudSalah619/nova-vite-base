@@ -1,0 +1,94 @@
+# Define variables
+STASH_MESSAGE="tmp husky stash"
+FILES_TO_STASH=$(git ls-files . --exclude-standard --others -m)
+
+# Function to pop the stash if it was created
+cleanup() {
+    if [ -n "$FILES_TO_STASH" ]; then
+        echo "Restoring stashed files..."
+        git stash pop || echo "Failed to pop stash. You may need to manually restore it."
+    fi
+}
+
+# Check if there are files to stash
+if [ -n "$FILES_TO_STASH" ]; then
+    git stash push -m "$STASH_MESSAGE" -- $FILES_TO_STASH
+fi
+
+echo '🏗️👷 Styling, testing and building your project before committing'
+
+# Remove console.logs
+npm run remove-logs ||
+(
+    echo '🤢🤮🤢🤮 Your console.logs look disgusting. 🤢🤮🤢🤮
+        Remove-logs Failed. Run npm run remove-logs, add changes and try commit again.';
+    false;
+)
+
+# Fix Lint standards
+npm run fix-lint ||
+(
+    echo '🤢🤮🤢🤮 Your lint looks disgusting. 🤢🤮🤢🤮
+            ESlint Fix Failed. Run npm run check-lint, then try again';
+    false;
+)
+
+
+# Fix Style standards
+# TODO: Fix this command
+# npm run fix-style ||
+# (
+#     echo '🤢🤮🤢🤮 Your Style looks disgusting. 🤢🤮🤢🤮
+#             Style Fix Failed.';
+#     false;
+# )
+
+# Fix Format standards
+npm run format ||
+(
+    echo '🤢🤮🤢🤮 Your Format looks disgusting. 🤢🤮🤢🤮
+            Style Fix Failed. Run npm run format, add changes and try commit again.';
+    false;
+)
+
+# Check Prettier standards
+npm run check-format ||
+(
+    echo '🤢🤮🤢🤮 Its FOKING RAW - Your formating looks disgusting. 🤢🤮🤢🤮
+            Prettier Check Failed. Run npm run format, add changes and try commit again.';
+    false;
+)
+
+# Check ESLint Standards
+npm run check-lint ||
+(
+        echo '😤🏀👋😤 Get that weak shit out of here! 😤🏀👋😤 
+                ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+        false; 
+)
+
+# Check tsconfig standards
+npm run check-types ||
+(
+    echo '🤡😂❌🤡 Failed Type check. 🤡😂❌🤡
+            Are you seriously trying to write that? Make the changes required above.'
+    false;
+)
+
+# If everything passes... Now we can commit
+echo '🤔🤔🤔🤔... Alright.... Code looks good to me... Trying to build now. 🤔🤔🤔🤔'
+
+npm run build ||
+(
+    echo '❌👷🔨❌ Better call Bob... Because your build failed ❌👷🔨❌
+            Next build failed: View the errors above to see why. 
+    '
+    false;
+)
+
+git add .
+cleanup
+
+
+# If everything passes... Now we can commit
+echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'

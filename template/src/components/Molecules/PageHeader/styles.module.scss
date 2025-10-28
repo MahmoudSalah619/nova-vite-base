@@ -4,15 +4,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
 
-  .childrenContainer {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-  .titleCon {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-  }
+.childrenContainer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.titleCon {
+  display: flex;
+  gap: 16px;
+}
+
+.arrowCon {
+  padding-block: 4px;
+}
+
+.arrowleft {
+  rotate: 90deg;
 }

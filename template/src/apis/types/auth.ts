@@ -31,17 +31,17 @@ export interface ForgotPasswordResponse {
     detail?: string;
   };
 }
-export interface GetResetCodeBody {
+export interface GetResetOtpBody {
   email: string;
 }
 
-export interface CheckResetCodeBody {
+export interface CheckResetOtpBody {
   email: string;
-  code: string;
+  otp: string;
 }
 
 export interface ResetPassword {
   email: string;
-  code: string;
-  password: string;
+  otp: string;
+  new_password: string;
 }

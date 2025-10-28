@@ -4,10 +4,11 @@ import type { TableProps } from "antd";
 import TableHeader from "../../Molecules/TableHeader";
 import CustomPagination from "../../Molecules/CustomPagination";
 import styles from "./styles.module.scss";
-import { MainTableOrganismProps, TableRow } from "./types";
-import Image from "../../Atoms/Image";
-import filter from "../../../assets/icons/filter-lines.svg";
-import DatePicker from "../../Molecules/DatePicker";
+import { MainTableOrganismProps, TableColumn, TableRow } from "./types";
+import TableFilterMolecule from "../../Molecules/TableFilterMolecule";
+import Text from "../../Atoms/Text";
+import Icon from "../../Atoms/Icon";
+import { useSearchParams } from "react-router-dom";
 
 function MainTableOrganism({
   headerTitle,
@@ -20,13 +21,14 @@ function MainTableOrganism({
   selectedRowKeys = [],
   setSelectedRowKeys,
   onSelectionChange,
-  children,
   rowOnClick,
-  filterBtn,
-  dateBtn,
   showHeader,
+  tableFilters,
+  pageSearchParamName = "page",
 }: MainTableOrganismProps) {
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const paginatedData = dataSource?.slice(
     (currentPage - 1) * pageSize,
@@ -66,43 +68,138 @@ function MainTableOrganism({
       }
     : undefined;
 
+  const getSortingState = (name: TableColumn["dataIndex"]) => {
+    const nameHasOrdering = searchParams
+      .get("ordering")
+      ?.includes(name?.toString() ?? "");
+    const isAscending = searchParams.get("ordering") === name;
+
+    return { nameHasOrdering, isAscending };
+  };
+
+  const handleSort = (name: string) => {
+    setSearchParams((prev) => {
+      if (pageSearchParamName) prev.delete(pageSearchParamName);
+
+      const { nameHasOrdering, isAscending } = getSortingState(name);
+
+      if (nameHasOrdering) {
+        if (isAscending) prev.set("ordering", `-${name}`);
+        else prev.delete("ordering");
+      } else {
+        prev.set("ordering", name);
+      }
+
+      return prev;
+    });
+  };
+
   return (
     <section className={styles.mainTable}>
-      {showHeader && (
-        <TableHeader title={headerTitle} headerClassName={headerClassName}>
-          <div className={styles.headerCon}>
-            {children}
-            {filterBtn ? (
-              <button className={styles.filterBtn}>
-                <Image src={filter} alt="filter" width={20} height={20} />
-                Filters
-              </button>
-            ) : dateBtn ? (
-              <DatePicker />
-            ) : null}
-          </div>
+      {!!showHeader && (
+        <TableHeader
+          title={headerTitle}
+          headerClassName={`${styles.header} ${headerClassName}`}
+        >
+          <TableFilterMolecule
+            className={styles.filter}
+            filters={tableFilters}
+          />
         </TableHeader>
       )}
 
-      <Table
-        rowSelection={rowSelection}
-        columns={columns}
-        dataSource={paginatedData}
-        pagination={false}
-        onRow={(record: TableRow) => ({
-          onClick: () => rowOnClick?.(record),
-        })}
-      />
-      {showPagination && (
-        <div className={styles.paginationContainer}>
-          <CustomPagination
-            total={dataSource?.length}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      )}
+      <div>
+        <Table
+          scroll={{ x: "max-content" }}
+          rowSelection={rowSelection}
+          columns={columns}
+          components={{
+            header: {
+              cell: (cell) => {
+                // TODO: Try to add type for cellParam
+                const col = columns.find((c) => c.title === cell.children[1]);
+                const content = cell.children[1];
+                const isSelectionCell = cell.className.includes("selection");
+                const isCellSortable = !isSelectionCell && content;
+
+                const { nameHasOrdering, isAscending } = getSortingState(
+                  col?.dataIndex as string
+                );
+
+                return (
+                  <th className={cell.className}>
+                    <div className={styles.headerCell}>
+                      {isCellSortable && (
+                        <Icon
+                          name="sort"
+                          onClick={() => handleSort(col?.dataIndex as string)}
+                        />
+                      )}
+
+                      <Text variant="L2" color="text50">
+                        {cell.children[1]}
+                      </Text>
+
+                      <Icon
+                        name="homeArrowLeft"
+                        size={15}
+                        className={`${styles.arrow} ${
+                          isAscending ? styles.ascArrow : styles.descArrow
+                        } ${isCellSortable && nameHasOrdering ? styles.activeArrow : ""}`}
+                      />
+                    </div>
+                  </th>
+                );
+              },
+            },
+
+            body: {
+              cell: (cell) => {
+                const cellContent = cell.children[1];
+                const cellType = typeof cell.children[1];
+                return (
+                  <td className={cell.className}>
+                    {cellType === "string" ? (
+                      <Text variant="P7" color="text50">
+                        {cellContent}
+                      </Text>
+                    ) : (
+                      cellContent
+                    )}
+                  </td>
+                );
+              },
+            },
+          }}
+          dataSource={paginatedData}
+          pagination={false}
+          rowClassName={(_, idx) => {
+            const isEven = idx % 2 === 0;
+            return `${isEven ? styles.evenRow : styles.oddRow} ${
+              rowOnClick && styles.rowCustom
+            }`;
+          }}
+          onRow={(record: TableRow) => ({
+            onClick: () => rowOnClick?.(record),
+          })}
+        />
+
+        {!!showPagination && (
+          <div className={styles.paginationContainer}>
+            <CustomPagination
+              total={dataSource?.length}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+            <Text variant="P10" color="text50">{`Showing ${
+              pageSize * (currentPage - 1) + 1
+            }-${Math.min(pageSize * currentPage, dataSource.length)} of ${
+              dataSource.length
+            } items`}</Text>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

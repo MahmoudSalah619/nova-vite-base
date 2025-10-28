@@ -2,18 +2,27 @@
 
 .StaticticsCard {
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: 16px !important;
 
+  height: 138px;
   width: 100%;
-  padding: 10px 20px;
 
-  background-color: $light;
-  border: 1px solid $gray200;
-  border-radius: 10px;
-  .iconCon {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-  }
+  background-color: $neutral0;
+
+  border: none !important;
+
+  border-radius: 2px !important;
+
+  padding-block-start: 40px !important;
+  padding-block-end: 30px !important;
+}
+
+.iconCon {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  opacity: 0.64;
 }

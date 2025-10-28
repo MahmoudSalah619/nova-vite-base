@@ -1,20 +1,25 @@
 import { Link, LinkProps } from "react-router-dom";
 import Text from "../Text";
 import styles from "./styles.module.scss";
+import COLORS from "@/constants/COLORS";
 
 interface HyperLinkProps extends LinkProps {
   title: string;
-  fontSize: 12 | 14 | 16;
+  fontColor?: keyof typeof COLORS;
+  fontVariant: TextVariant;
 }
 
-function HyperLink({ title, fontSize, ...otherProps }: HyperLinkProps) {
-  const fontWeight = fontSize === 12 ? "font400" : "font500";
+function HyperLink({
+  title,
+  fontVariant,
+  fontColor,
+  ...otherProps
+}: HyperLinkProps) {
   return (
     <Link className={styles.link} {...otherProps}>
       <Text
-        color="primary"
-        fontSize={fontSize}
-        fontFamily={fontWeight}
+        color={fontColor}
+        variant={fontVariant}
         className={styles.customText}
       >
         {title}

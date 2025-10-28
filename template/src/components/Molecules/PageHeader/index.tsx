@@ -1,35 +1,56 @@
-import { ReactNode } from "react";
 import Text from "../../Atoms/Text";
 import styles from "./styles.module.scss";
-import useAutoCompleteTranslation from "@/hooks/useAutoCompleteTranslation";
-import { TranslationKeyEnum } from "@/types/TranslationKeyEnum";
-import Image from "../../Atoms/Image";
-import vector from "@/src/assets/images/vector.png";
+import PageHeaderProps from "./types";
+import Icon from "../../Atoms/Icon";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function PageHeader({
+  className,
   title,
-  children,
-  fontSize = 36,
+  i18nTitle,
+  canGoBack,
   childCon,
-  titleImg,
-}: {
-  title?: TranslationKeyEnum;
-  children?: ReactNode;
-  fontSize?: number;
-  childCon?: string;
-  titleImg?: boolean;
-}) {
-  const { t } = useAutoCompleteTranslation();
+  children,
+  subtitleContent,
+}: PageHeaderProps) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    const segments = location.pathname.split("/");
+    segments.pop(); // Remove the last segment
+    const newPath = segments.join("/");
+
+    navigate(!newPath ? "/" : newPath);
+  };
   return (
-    <div className={styles.container}>
-      {title && (
+    <div className={`${styles.container} ${className}`}>
+      {(title || i18nTitle) && (
         <div className={styles.titleCon}>
-          {titleImg && <Image src={vector} width={42} alt="" height={42} />}
-          <Text fontSize={fontSize} fontFamily="font500" color="grey900">
-            {t(title)}
-          </Text>
+          {canGoBack && (
+            <div className={styles.arrowCon}>
+              <Icon
+                name="arrowDown"
+                className={styles.arrowleft}
+                size={16}
+                onClick={handleGoBack}
+              />
+            </div>
+          )}
+
+          <div>
+            {i18nTitle ? (
+              <Text variant="H7" color="text50" i18nText={i18nTitle} />
+            ) : (
+              <Text variant="H7" color="text50">
+                {title}
+              </Text>
+            )}
+            {subtitleContent}
+          </div>
         </div>
       )}
+
       <div className={`${styles.childrenContainer} ${childCon}`}>
         {children}
       </div>

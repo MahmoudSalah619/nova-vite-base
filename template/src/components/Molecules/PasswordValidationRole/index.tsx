@@ -18,9 +18,7 @@ function PasswordValidationRole({
     <div className={styles.container}>
       {/* Icon */}
       <Image src={isValid ? correct : wrong} alt="" width={16} height={16} />
-      <Text fontSize={12} fontFamily="font500" color="grey600">
-        {t(title)}
-      </Text>
+      <Text variant="P7">{t(title)}</Text>
     </div>
   );
 }

@@ -27,13 +27,12 @@ export default function Timer() {
     <div>
       {timer === 0 ? (
         <Button
-          customStyle={styles.sendOTP}
+          className={styles.sendOTP}
           title="You can request a new code now"
-          variant="transparet"
           onClick={handleRequestNewCode}
         />
       ) : (
-        <Text fontSize={11} fontFamily="font500">
+        <Text variant="P7">
           {`Request a new code after ${String(Math.floor(timer / 60)).padStart(
             2,
             "0"

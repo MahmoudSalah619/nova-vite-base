@@ -2,29 +2,30 @@
 
 .siderStyle {
   position: fixed;
+  width: $sidebar-width;
 
   height: 100vh;
-  padding: 32px 24px;
-
-  background-color: $light;
-  border-right: 1px solid $grey200;
 }
 
 .mainContainer {
-  margin-inline-start: 20%;
+  margin-inline-start: $sidebar-width;
   min-height: 100vh;
-  .headerStyle {
-    height: 88px;
-    padding: 0;
-    padding: 32px 24px;
+}
 
-    line-height: unset;
+.headerStyle {
+  display: flex;
+  align-items: center;
 
-    background-color: $light;
-    border-bottom: 1px solid $grey200;
-  }
+  line-height: unset;
 
-  .contentStyle {
-    padding: 32px 24px;
-  }
+  background-color: $neutral0;
+  height: $navbar-height;
+  padding-inline-start: 26px;
+  padding-inline-end: 24px;
+
+  border-bottom: 1px solid $neutral300;
+}
+
+.contentStyle {
+  padding: 16px 24px;
 }

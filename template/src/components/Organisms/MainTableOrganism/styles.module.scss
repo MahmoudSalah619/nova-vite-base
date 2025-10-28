@@ -1,22 +1,72 @@
 @use "/styles/all" as *;
 
 .mainTable {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  :global {
+    .ant-table-row.ant-table-row-selected > .ant-table-cell {
+      font-weight: 700;
+      background-color: $neutral100 !important;
+    }
+
+    th {
+      flex-direction: row !important;
+      height: 40px !important;
+      padding-block: 0 !important;
+      background-color: $neutral200 !important;
+    }
+
+    th:before,
+    .ant-table-measure-row {
+      display: none !important;
+    }
+
+    td {
+      padding-block: 0 !important;
+      height: 40px !important;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.evenRow {
+  background-color: $neutral0;
+}
+
+.oddRow {
+  background-color: $neutral100;
+}
+
+.headerCell {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }
 
 .table {
   margin-bottom: 20px;
 }
+
 .rowCustom {
   cursor: pointer;
 }
 
 .paginationContainer {
-  padding-top: 14px;
-  padding-bottom: 18px;
-  padding-inline: 24px;
+  height: 56px;
+  padding-inline: 16px;
+  background-color: $neutral0;
+  display: flex;
+  flex-direction: row-reverse;
+
+  align-items: center;
+  justify-content: space-between;
 
   :global {
     .ant-pagination {
@@ -25,21 +75,19 @@
     }
   }
 }
-.headerCon {
-  display: flex;
-  justify-content: space-between;
+
+.arrow {
+  visibility: hidden;
 }
-.filterBtn {
-  display: flex;
-  gap: 8px;
-  align-items: center;
 
-  padding: 8px;
+.activeArrow {
+  visibility: visible;
+}
 
-  font-family: "GothamMedium";
-  font-size: 14px;
-  color: $gray700;
+.ascArrow {
+  rotate: 90deg;
+}
 
-  border: 1px solid $darkGrey;
-  border-radius: 7px;
+.descArrow {
+  rotate: 270deg;
 }

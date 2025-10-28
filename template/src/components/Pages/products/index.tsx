@@ -1,10 +1,14 @@
-import ProductOrganism from "../../Organisms/ProductOrganism";
+import AllProductsOrganism from "../../Organisms/AllProductsOrganism";
+import ProductsExportSelectorOrganism from "../../Organisms/ProductsExportSelectorOrganism";
+import PageWrapper from "../../Wrappers/PageWrapper";
+import styles from "./styles.module.scss";
 
 function Products() {
   return (
-    <main>
-      <ProductOrganism />
-    </main>
+    <PageWrapper className={styles.productsPageWrapper}>
+      <ProductsExportSelectorOrganism />
+      <AllProductsOrganism />
+    </PageWrapper>
   );
 }
 
