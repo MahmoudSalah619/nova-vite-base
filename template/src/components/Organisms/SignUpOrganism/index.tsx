@@ -25,7 +25,7 @@ export default function SignUpOrganism() {
   } = useForm<Auth>({ mode: "all" });
 
   const onSubmit: SubmitHandler<Auth> = (data) => {
-    const user_type = data.email === "admin@gmail.com" ? "admin" : "seller";
+    const user_type = data?.email === "admin@gmail.com" ? "admin" : "seller";
     const dummy_data = {
       user_type,
     };
@@ -33,7 +33,7 @@ export default function SignUpOrganism() {
       token: "skshdj36su3h77",
       data: dummy_data as User,
     });
-    navigate("/login");
+    navigate("/");
   };
 
   return (
