@@ -1,5 +1,5 @@
 {
-  "name": "create-nova-vite-template",
+  "name": "create-nova-vite-base",
   "description": "This is a dashboard template built with React and Vite. It provides a modern and responsive user interface for building web applications.",
   "author": "mahmoud salah <mahmoud.s.m619@gmail.com>",
   "keywords": [
@@ -22,7 +22,7 @@
     "bit68"
   ],
   "bin": {
-    "create-nova-vite-base": "./bin/cli.cmd"
+    "create-nova-vite-base": "bin/cli.cmd"
   },
   "files": [
     "bin",
@@ -30,7 +30,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MahmoudSalah619/nova-vite-base"
+    "url": "git+https://github.com/MahmoudSalah619/nova-vite-base.git"
   },
   "license": "MIT",
   "version": "1.0.0",
@@ -54,5 +54,11 @@
     "ejs": "3.1.10",
     "fs-extra": "11.3.0",
     "inquirer": "^12.4.2"
-  }
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/MahmoudSalah619/nova-vite-base/issues"
+  },
+  "homepage": "https://github.com/MahmoudSalah619/nova-vite-base#readme"
 }
