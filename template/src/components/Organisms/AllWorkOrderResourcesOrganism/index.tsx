@@ -12,7 +12,7 @@ function AllWorkOrderResourcesOrganism() {
     (_, i) => ({
       key: (i + 1).toString(),
       id: (i + 1).toString(),
-      resource: `Mina Ayman Maher`,
+      resource: `mahmoud salah Mahmoud`,
       startDate: "12 May,2024 12:23 AM",
       endDate: "12 May,2024 12:23 AM",
       duration: "1.50 hours",

@@ -29,10 +29,10 @@ function UserDetailsOrganism() {
   } = useForm<IUserDetails>({
     defaultValues: {
       userId: 1,
-      firstName: "Mina",
-      lastName: "Ayman Maher",
+      firstName: "Mahmoud",
+      lastName: "Salah",
       title: "Engineer",
-      email: "Minaayman@gmail.com",
+      email: "mahmoudsalah@gmail.com",
       phoneNumber: "201000000000",
     },
   });

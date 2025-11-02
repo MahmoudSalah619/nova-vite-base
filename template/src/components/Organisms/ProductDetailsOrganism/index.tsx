@@ -13,7 +13,7 @@ function ProductDetailsOrganism() {
   } = useForm<IProductDetails>({
     defaultValues: {
       productId: "#1636884473",
-      productName: "Mina Ayman Maher",
+      productName: "mahmoud salah Mahmoud",
       quantity: 15,
       availability: STATUS_ID.ON_HOLD,
     },

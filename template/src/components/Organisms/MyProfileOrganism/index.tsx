@@ -14,14 +14,14 @@ function MyProfileOrganism() {
 
       <div className={styles.userInfoContainer}>
         <UserAvatarAtom
-          user="Mina Ayman Maher"
+          user="mahmoud salah Mahmoud"
           fontVariant="H5"
           className={styles.avatar}
         />
 
         <div className={styles.userInfo}>
           <Text variant="P1" color="primary400">
-            Mina Ayman Maher
+            mahmoud salah Mahmoud
           </Text>
           <Text variant="P5">Technical engineer at Bit68 Company</Text>
           <Text variant="P4" i18nText="USER" />

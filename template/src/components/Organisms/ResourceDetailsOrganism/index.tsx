@@ -19,7 +19,7 @@ function ResourceDetailsOrganism() {
   } = useForm<IResourceDetails>({
     defaultValues: {
       resourceId: "#1636884473",
-      resourceName: "Mina Ayman Maher",
+      resourceName: "mahmoud salah Mahmoud",
       trade: "Bit68",
       availability: STATUS_ID.IN_PROGRESS,
       status: STATUS_ID.COMPLETED,

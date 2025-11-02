@@ -52,7 +52,7 @@ function AllUsersOrganism() {
     (_, i) => ({
       key: (i + 1).toString(),
       id: (i + 1).toString(),
-      fullName: "Mina Ayman Maher",
+      fullName: "mahmoud salah Mahmoud",
       code: "ADCD-123",
       title: "CAFM Coordinator",
       status: STATUS_ID.IN_PROGRESS,

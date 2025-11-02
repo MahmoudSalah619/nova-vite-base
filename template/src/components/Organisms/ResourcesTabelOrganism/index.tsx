@@ -43,7 +43,7 @@ function ResourcesTabelOrganism() {
       key: (i + 1).toString(),
       id: (i + 1).toString(),
       resourceId: "#1636884473",
-      resourceName: "Mina Ayman Maher",
+      resourceName: "mahmoud salah Mahmoud",
       trade: "Bit68",
       availability: STATUS_ID.IN_PROGRESS,
     })

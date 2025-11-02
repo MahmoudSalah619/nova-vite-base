@@ -16,7 +16,7 @@ function NavbarOrganism() {
             <Text variant="P4" color="text400">
               16, May 2024,
             </Text>
-            <Text variant="P9">Mina Ayman</Text>
+            <Text variant="P9">mahmoud salah</Text>
           </div>
           <div className={styles.statusContainer}>
             <StatusMolecule
@@ -25,7 +25,7 @@ function NavbarOrganism() {
             />
           </div>
         </div>
-        <UserAvatarAtom user="Mina Ayman" href="/my-profile" />
+        <UserAvatarAtom user="mahmoud salah" href="/my-profile" />
         <span className={styles.divider} />
         <NavbarNotification />
       </div>

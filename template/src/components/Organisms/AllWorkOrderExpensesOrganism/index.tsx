@@ -19,7 +19,7 @@ function AllWorkOrderExpensesOrganism() {
       costPrice: "550.00",
       postingDate: "12 May,2024 12:23 AM",
       lineStatus: "Used",
-      serviceType: "Mina Ayman Maher",
+      serviceType: "mahmoud salah Mahmoud",
     })
   );
 

@@ -15,7 +15,7 @@ interface IPersonalInfo {
 
 function ProfileInformationOrganism() {
   const defaultValues: IPersonalInfo = {
-    fullName: "Mina Ayman Maher",
+    fullName: "mahmoud salah Mahmoud",
     jobTitle: "Engineer",
     emailAddress: "minaayman@gmail.com",
     mobileNumber: "+201288153092",
